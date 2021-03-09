@@ -1,4 +1,4 @@
-package org.geekhub.studentsregistry.students.exceptions;
+package org.geekhub.studentsregistry.exceptions.checked;
 
 public class NumberFormatArgumentException extends InvalidStartupArgumentException{
 

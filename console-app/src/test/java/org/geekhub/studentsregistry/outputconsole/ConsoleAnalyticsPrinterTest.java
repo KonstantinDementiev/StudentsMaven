@@ -5,23 +5,23 @@ import org.testng.annotations.Test;
 
 import java.util.List;
 
-public class ConsoleStudentsAnalystImplPrinterTest {
+public class ConsoleAnalyticsPrinterTest {
 
-    private ConsoleStudentsAnalystPrinter consoleStudentsAnalystPrinter;
+    private ConsoleAnalyticsPrinter consoleAnalyticsPrinter;
 
     @BeforeMethod
     public void setUp() {
-        consoleStudentsAnalystPrinter = new ConsoleStudentsAnalystPrinter();
+        consoleAnalyticsPrinter = new ConsoleAnalyticsPrinter();
     }
 
     @Test
     public void when_input_is_null_print_nothing_without_exceptions() {
-        consoleStudentsAnalystPrinter.printDataForOneGradeType(null);
+        consoleAnalyticsPrinter.printOneGradeTypeAnalytics(null);
     }
 
     @Test
     public void when_input_list_is_not_null_print_list_successfully() {
         List<String> list = List.of("one", "two", "three");
-        consoleStudentsAnalystPrinter.printDataForOneGradeType(list);
+        consoleAnalyticsPrinter.printOneGradeTypeAnalytics(list);
     }
 }

@@ -1,10 +1,10 @@
-package org.geekhub.studentsregistry.students.printconverters;
+package org.geekhub.studentsregistry.printconverters;
 
 import org.geekhub.studentsregistry.grades.grade.GradePointAverage;
 import org.geekhub.studentsregistry.enums.GradeType;
 import org.geekhub.studentsregistry.students.Student;
-import org.geekhub.studentsregistry.students.analyst.StudentsAnalyst;
-import org.geekhub.studentsregistry.students.analyst.StudentsAnalystImpl;
+import org.geekhub.studentsregistry.analytics.StudentsAnalyst;
+import org.geekhub.studentsregistry.analytics.StudentsAnalystImpl;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -14,16 +14,16 @@ import java.time.Month;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ConverterStudentsAnalyticsInfoToPrintTest {
+public class ConverterAnalyticsToPrintTest {
 
     private final LocalDateTime DATE_TIME = LocalDateTime.of(2020, Month.DECEMBER, 11, 15, 30);
-    private ConverterStudentsAnalyticsInfoToPrint converter;
+    private ConverterAnalyticsToPrint converter;
     private StudentsAnalyst studentsAnalyst;
     private List<Student> studentsToAnalyze;
 
     @BeforeMethod
     public void setUp() {
-        converter = new ConverterStudentsAnalyticsInfoToPrint();
+        converter = new ConverterAnalyticsToPrint();
         studentsAnalyst = new StudentsAnalystImpl();
         studentsToAnalyze = new ArrayList<>();
         studentsToAnalyze.add(new Student("Tom", new GradePointAverage(90), DATE_TIME));

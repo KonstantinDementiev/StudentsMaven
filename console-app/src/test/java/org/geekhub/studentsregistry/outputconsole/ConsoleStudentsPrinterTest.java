@@ -13,7 +13,7 @@ import static org.assertj.core.api.Assertions.assertThatCode;
 public class ConsoleStudentsPrinterTest {
 
     private ConsoleStudentsPrinter consoleStudentsPrinter;
-    private List<HashMap<String, String>> studentsForPrinting;
+    private List<String> studentsForPrinting;
 
     @BeforeMethod
     public void setUp() {
@@ -23,48 +23,16 @@ public class ConsoleStudentsPrinterTest {
 
     @Test
     public void When_ListForPrintingIsNull_Then_PrintEmptyList() {
-        assertThatCode(() -> consoleStudentsPrinter.printStudentsTable(
-                GradeType.LETTER, null)).doesNotThrowAnyException();
-    }
-
-    @Test
-    public void When_TableNameIsNull_Then_PrintStudentsSuccessfully() {
-        assertThatCode(() -> {
-            HashMap<String, String> newStudent1 = new HashMap<>();
-            newStudent1.put("Name", "Tom");
-            newStudent1.put("Grade", "A");
-            studentsForPrinting.add(newStudent1);
-            consoleStudentsPrinter.printStudentsTable(null, studentsForPrinting);
-        }).doesNotThrowAnyException();
+        assertThatCode(() -> consoleStudentsPrinter.printOneGradeTypeStudents(null))
+                .doesNotThrowAnyException();
     }
 
     @Test
     public void When_StudentsToPrintIsOk_Then_PrintCorrectTable() {
         assertThatCode(() -> {
-            HashMap<String, String> newStudent1 = new HashMap<>();
-            newStudent1.put("Name", "Tom");
-            newStudent1.put("Grade", "A");
-            HashMap<String, String> newStudent2 = new HashMap<>();
-            newStudent2.put("Name", "Anna");
-            newStudent2.put("Grade", "B");
-            studentsForPrinting.add(newStudent1);
-            studentsForPrinting.add(newStudent2);
-            consoleStudentsPrinter.printStudentsTable(GradeType.LETTER, studentsForPrinting);
+            studentsForPrinting.add("Tom");
+            consoleStudentsPrinter.printOneGradeTypeStudents(studentsForPrinting);
         }).doesNotThrowAnyException();
     }
 
-    @Test
-    public void When_PresentStudentWithEmptyOrNullGrade_Then_PrintUnknownGrade() {
-        assertThatCode(() -> {
-            HashMap<String, String> newStudent1 = new HashMap<>();
-            newStudent1.put("Name", "Tom");
-            newStudent1.put("Grade", "");
-            HashMap<String, String> newStudent2 = new HashMap<>();
-            newStudent2.put("Name", "Anna");
-            newStudent2.put("Grade", null);
-            studentsForPrinting.add(newStudent1);
-            studentsForPrinting.add(newStudent2);
-            consoleStudentsPrinter.printStudentsTable(GradeType.LETTER, studentsForPrinting);
-        }).doesNotThrowAnyException();
-    }
 }

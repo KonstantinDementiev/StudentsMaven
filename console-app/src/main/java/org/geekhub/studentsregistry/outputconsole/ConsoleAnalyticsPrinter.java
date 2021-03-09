@@ -6,9 +6,9 @@ import java.util.List;
 import java.util.Optional;
 
 @Dependency
-public class ConsoleStudentsAnalystPrinter {
+public class ConsoleAnalyticsPrinter {
 
-    public void printDataForOneGradeType(List<String> listToPrint) {
+    public void printOneGradeTypeAnalytics(List<String> listToPrint) {
         Optional<List<String>> opt = Optional.ofNullable(listToPrint);
         opt.ifPresent(list -> list.forEach(System.out::println));
     }

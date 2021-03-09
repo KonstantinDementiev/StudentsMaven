@@ -1,4 +1,4 @@
-package org.geekhub.studentsregistry.students.printconverters;
+package org.geekhub.studentsregistry.printconverters;
 
 import org.geekhub.studentsregistry.anotations.Dependency;
 import org.geekhub.studentsregistry.enums.GradeType;
@@ -6,7 +6,7 @@ import org.geekhub.studentsregistry.interfaces.Grade;
 import org.geekhub.studentsregistry.grades.gradeFactory.GradeFactory;
 import org.geekhub.studentsregistry.grades.gradeFactory.GradeFactoryImpl;
 import org.geekhub.studentsregistry.students.Student;
-import org.geekhub.studentsregistry.students.analyst.StudentsAnalyst;
+import org.geekhub.studentsregistry.analytics.StudentsAnalyst;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @Dependency
-public class ConverterStudentsAnalyticsInfoToPrint {
+public class ConverterAnalyticsToPrint {
 
     private final GradeFactory gradeFactory = new GradeFactoryImpl();
 

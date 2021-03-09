@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>All students</title>
+</head>
+<body style="margin-left: 100px; margin-right: 100px">
+
+<header style="background-color:khaki; height:40px; font-weight: bold; font-size: xx-large;">
+    <p>All students</p>
+</header>
+
+<div th:each="student : ${students}">
+    <a th:text="${student.getName() + ', ' + person.getAge()}">user</a>
+</div>
+
+</body>
+</html>

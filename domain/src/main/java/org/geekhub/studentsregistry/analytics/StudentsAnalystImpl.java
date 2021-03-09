@@ -1,4 +1,4 @@
-package org.geekhub.studentsregistry.students.analyst;
+package org.geekhub.studentsregistry.analytics;
 
 import org.geekhub.studentsregistry.interfaces.Grade;
 import org.geekhub.studentsregistry.grades.grade.GradeWithValue;

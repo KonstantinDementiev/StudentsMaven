@@ -1,4 +1,4 @@
-package org.geekhub.studentsregistry.students.analyst;
+package org.geekhub.studentsregistry.analytics;
 
 import org.geekhub.studentsregistry.anotations.Dependency;
 import org.geekhub.studentsregistry.students.Student;

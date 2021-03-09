@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Login page</title>
+</head>
+
+<body style="margin-left: 100px; margin-right: 100px">
+
+<header style="background-color:khaki; height:40px; font-weight: bold; font-size: xx-large;">
+    <p>Login page</p>
+</header>
+
+<form th:method="POST" th:action="@{/people}" th:object="${person}">
+    <br>
+    <br>
+    <label for="userType">User login:</label>
+    <select id="userType" name = "user">
+        <option value="user">User</option>
+        <option value="admin">Admin</option>
+    </select>
+    <input type="submit" value="Login"/>
+
+</form>
+</body>
+</html>

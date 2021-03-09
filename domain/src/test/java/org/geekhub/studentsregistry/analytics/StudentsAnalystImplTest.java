@@ -1,5 +1,6 @@
-package org.geekhub.studentsregistry.students.analyst;
+package org.geekhub.studentsregistry.analytics;
 
+import org.geekhub.studentsregistry.analytics.StudentsAnalystImpl;
 import org.geekhub.studentsregistry.grades.grade.GradeLetter;
 import org.geekhub.studentsregistry.grades.grade.GradePercent;
 import org.geekhub.studentsregistry.students.Student;

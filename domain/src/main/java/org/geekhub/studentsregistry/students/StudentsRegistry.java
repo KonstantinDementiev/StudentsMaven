@@ -1,21 +1,21 @@
 package org.geekhub.studentsregistry.students;
 
-import org.geekhub.studentsregistry.interfaces.DataReader;
+import org.geekhub.studentsregistry.enums.DataSourceMode;
+import org.geekhub.studentsregistry.enums.GradeType;
 import org.geekhub.studentsregistry.files.StudentsFileFinder;
 import org.geekhub.studentsregistry.files.StudentsFileReader;
 import org.geekhub.studentsregistry.files.StudentsFileWriter;
-import org.geekhub.studentsregistry.enums.GradeType;
-import org.geekhub.studentsregistry.enums.DataSourceMode;
 import org.geekhub.studentsregistry.inputgenerator.StudentsRandomGenerator;
+import org.geekhub.studentsregistry.interfaces.DataReader;
 import org.geekhub.studentsregistry.logger.StudentsLogger;
-import org.geekhub.studentsregistry.outputconsole.ConsoleStudentsAnalystPrinter;
+import org.geekhub.studentsregistry.outputconsole.ConsoleAnalyticsPrinter;
 import org.geekhub.studentsregistry.outputconsole.ConsoleStudentsPrinter;
-import org.geekhub.studentsregistry.students.analyst.StudentsAnalyst;
-import org.geekhub.studentsregistry.students.exceptions.EmptyArgumentException;
-import org.geekhub.studentsregistry.students.exceptions.NumberFormatArgumentException;
-import org.geekhub.studentsregistry.students.exceptions.ZeroArgumentException;
-import org.geekhub.studentsregistry.students.printconverters.ConverterStudentsAnalyticsInfoToPrint;
-import org.geekhub.studentsregistry.students.printconverters.ConverterStudentsToPrint;
+import org.geekhub.studentsregistry.analytics.StudentsAnalyst;
+import org.geekhub.studentsregistry.exceptions.checked.EmptyArgumentException;
+import org.geekhub.studentsregistry.exceptions.checked.NumberFormatArgumentException;
+import org.geekhub.studentsregistry.exceptions.checked.ZeroArgumentException;
+import org.geekhub.studentsregistry.printconverters.ConverterAnalyticsToPrint;
+import org.geekhub.studentsregistry.printconverters.ConverterStudentsToPrint;
 
 import java.io.IOException;
 import java.lang.reflect.Field;
@@ -42,8 +42,8 @@ public class StudentsRegistry {
     private final ConverterStudentsToPrint converterStudentsToPrint;
     private final ConsoleStudentsPrinter consoleStudentsPrinter;
     private final StudentsAnalyst studentsAnalyst;
-    private final ConverterStudentsAnalyticsInfoToPrint converterStudentsAnalyticsInfoToPrint;
-    private final ConsoleStudentsAnalystPrinter consoleStudentsAnalystPrinter;
+    private final ConverterAnalyticsToPrint converterAnalyticsToPrint;
+    private final ConsoleAnalyticsPrinter consoleAnalyticsPrinter;
     private final StudentsFileFinder studentsFileFinder;
     private final StudentsFileReader studentsFileReader;
     private final StudentsFileWriter studentsFileWriter;
@@ -56,8 +56,8 @@ public class StudentsRegistry {
             ConverterStudentsToPrint converterStudentsToPrint,
             ConsoleStudentsPrinter consoleStudentsPrinter,
             StudentsAnalyst studentsAnalyst,
-            ConverterStudentsAnalyticsInfoToPrint converterStudentsAnalyticsInfoToPrint,
-            ConsoleStudentsAnalystPrinter consoleStudentsAnalystPrinter,
+            ConverterAnalyticsToPrint converterAnalyticsToPrint,
+            ConsoleAnalyticsPrinter consoleAnalyticsPrinter,
             StudentsFileFinder studentsFileFinder,
             StudentsFileReader studentsFileReader,
             StudentsFileWriter studentsFileWriter
@@ -69,8 +69,8 @@ public class StudentsRegistry {
         this.converterStudentsToPrint = converterStudentsToPrint;
         this.consoleStudentsPrinter = consoleStudentsPrinter;
         this.studentsAnalyst = studentsAnalyst;
-        this.converterStudentsAnalyticsInfoToPrint = converterStudentsAnalyticsInfoToPrint;
-        this.consoleStudentsAnalystPrinter = consoleStudentsAnalystPrinter;
+        this.converterAnalyticsToPrint = converterAnalyticsToPrint;
+        this.consoleAnalyticsPrinter = consoleAnalyticsPrinter;
         this.studentsFileFinder = studentsFileFinder;
         this.studentsFileReader = studentsFileReader;
         this.studentsFileWriter = studentsFileWriter;
@@ -159,11 +159,11 @@ public class StudentsRegistry {
 
     private void printStudentsInfo(Map<GradeType, List<Student>> students) {
         for (GradeType gradeType : GradeType.values()) {
-            consoleStudentsPrinter.printStudentsTable(gradeType,
-                    converterStudentsToPrint.convertStudentsToPrintFormat(
-                            students.get(gradeType)));
-            consoleStudentsAnalystPrinter.printDataForOneGradeType(
-                    converterStudentsAnalyticsInfoToPrint.getPrintDataForOneGradeType(
+            consoleStudentsPrinter.printOneGradeTypeStudents(
+                    converterStudentsToPrint.convertStudentsGroupToPrint(
+                            gradeType, students.get(gradeType)));
+            consoleAnalyticsPrinter.printOneGradeTypeAnalytics(
+                    converterAnalyticsToPrint.getPrintDataForOneGradeType(
                             gradeType, students.get(gradeType), studentsAnalyst));
         }
     }

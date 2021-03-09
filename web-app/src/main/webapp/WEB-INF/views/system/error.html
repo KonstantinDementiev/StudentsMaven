@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Error</title>
+</head>
+<body style="margin-left: 100px; margin-right: 100px">
+
+<header style="background-color:#f8c3c3; height:40px; font-weight: bold; font-size: xx-large;">
+    <p>Something wrong.</p>
+</header>
+
+<form th:method="POST" th:action="@{/people}" th:object="${person}">
+    <br>
+    <br>
+    <input type="submit" value="Try again"/>
+</form>
+</body>
+</html>

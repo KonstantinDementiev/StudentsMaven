@@ -7,11 +7,11 @@ import org.geekhub.studentsregistry.grades.grade.GradeLetter;
 import org.geekhub.studentsregistry.enums.GradeType;
 import org.geekhub.studentsregistry.enums.DataSourceMode;
 import org.geekhub.studentsregistry.interfaces.DataReader;
-import org.geekhub.studentsregistry.outputconsole.ConsoleStudentsAnalystPrinter;
+import org.geekhub.studentsregistry.outputconsole.ConsoleAnalyticsPrinter;
 import org.geekhub.studentsregistry.outputconsole.ConsoleStudentsPrinter;
-import org.geekhub.studentsregistry.students.analyst.StudentsAnalyst;
-import org.geekhub.studentsregistry.students.printconverters.ConverterStudentsAnalyticsInfoToPrint;
-import org.geekhub.studentsregistry.students.printconverters.ConverterStudentsToPrint;
+import org.geekhub.studentsregistry.analytics.StudentsAnalyst;
+import org.geekhub.studentsregistry.printconverters.ConverterAnalyticsToPrint;
+import org.geekhub.studentsregistry.printconverters.ConverterStudentsToPrint;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
@@ -43,9 +43,9 @@ public class StudentsRegistryTest {
     @Mock
     private StudentsAnalyst studentsAnalyst;
     @Mock
-    private ConverterStudentsAnalyticsInfoToPrint converterStudentsAnalyticsInfoToPrint;
+    private ConverterAnalyticsToPrint converterAnalyticsToPrint;
     @Mock
-    private ConsoleStudentsAnalystPrinter consoleStudentsAnalystPrinter;
+    private ConsoleAnalyticsPrinter consoleAnalyticsPrinter;
 
     private StudentsFileFinder studentsFileFinder;
     private StudentsFileReader studentsFileReader;
@@ -83,8 +83,8 @@ public class StudentsRegistryTest {
                 converterStudentsToPrint,
                 consoleStudentsPrinter,
                 studentsAnalyst,
-                converterStudentsAnalyticsInfoToPrint,
-                consoleStudentsAnalystPrinter,
+                converterAnalyticsToPrint,
+                consoleAnalyticsPrinter,
                 studentsFileFinder,
                 studentsFileReader,
                 studentsFileWriter
@@ -92,7 +92,7 @@ public class StudentsRegistryTest {
         Mockito.when(studentsCreator.createStudentsList(eq(enteredStudents))).thenReturn(createdStudents);
         Mockito.when(studentsFilterer.groupStudentsByGrade(eq(createdStudents))).thenReturn(filteredStudents);
         studentsRegistryConsole.run(TOTAL_STUDENTS_NUMBER, DataSourceMode.MANUAL);
-        Mockito.verify(consoleStudentsPrinter, Mockito.times(4)).printStudentsTable(any(), anyList());
+        Mockito.verify(consoleStudentsPrinter, Mockito.times(4)).printOneGradeTypeStudents(anyList());
     }
 
     @Test
@@ -105,8 +105,8 @@ public class StudentsRegistryTest {
                 converterStudentsToPrint,
                 consoleStudentsPrinter,
                 studentsAnalyst,
-                converterStudentsAnalyticsInfoToPrint,
-                consoleStudentsAnalystPrinter,
+                converterAnalyticsToPrint,
+                consoleAnalyticsPrinter,
                 studentsFileFinder,
                 studentsFileReader,
                 studentsFileWriter
@@ -114,6 +114,6 @@ public class StudentsRegistryTest {
         Mockito.when(studentsCreator.createStudentsList(eq(enteredStudents))).thenReturn(createdStudents);
         Mockito.when(studentsFilterer.groupStudentsByGrade(eq(createdStudents))).thenReturn(filteredStudents);
         studentsRegistryGenerator.run(TOTAL_STUDENTS_NUMBER, DataSourceMode.AUTO);
-        Mockito.verify(consoleStudentsPrinter, Mockito.times(4)).printStudentsTable(any(), anyList());
+        Mockito.verify(consoleStudentsPrinter, Mockito.times(4)).printOneGradeTypeStudents(anyList());
     }
 }
