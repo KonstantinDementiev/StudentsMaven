@@ -1,7 +1,7 @@
 package org.geekhub.studentsregistry.printconverters;
 
 import org.geekhub.studentsregistry.enums.GradeType;
-import org.geekhub.studentsregistry.grades.grade.GradePointAverage;
+import org.geekhub.studentsregistry.grades.grade.GradeGPA;
 import org.geekhub.studentsregistry.students.Student;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
@@ -24,7 +24,7 @@ public class ConverterStudentsToPrintTest {
     public void setUp() {
         converter = new ConverterStudentsToPrint();
         studentsToPrint = new ArrayList<>();
-        studentsToPrint.add(new Student("Bob", new GradePointAverage(98), DATE_TIME));
+        studentsToPrint.add(new Student(1,"Bob", new GradeGPA(98), DATE_TIME));
     }
 
     @Test

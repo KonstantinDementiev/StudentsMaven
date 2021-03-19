@@ -5,26 +5,32 @@ import org.geekhub.studentsregistry.enums.GradeType;
 import org.geekhub.studentsregistry.interfaces.Grade;
 import org.geekhub.studentsregistry.grades.gradeFactory.GradeFactory;
 import org.geekhub.studentsregistry.grades.gradeFactory.GradeFactoryImpl;
+import org.springframework.stereotype.Component;
+
 
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+@Component
 @Dependency
 public class StudentsCreator {
 
-    public List<Student> createStudentsList(List<List<String>> originalStudentsArray) {
-        Optional<List<List<String>>> optionalOriginalStudentsArray = Optional.ofNullable(originalStudentsArray);
-        return optionalOriginalStudentsArray.stream()
+    public List<Student> createStudentsList(List<List<String>> originalStudentsArray, int startId) {
+        int [] studentId = {startId};
+        Optional<List<List<String>>> optionalList = Optional.ofNullable(originalStudentsArray);
+        return optionalList.stream()
                 .flatMap(List::stream)
-                .map(this::createStudent)
+                .map(student -> createStudent(student, ++studentId[0]))
                 .collect(Collectors.toList());
     }
 
-    private Student createStudent(List<String> enteredStudent) {
-        return new Student(enteredStudent.get(0),
-                createGradeForOneStudent(enteredStudent.get(1), enteredStudent.get(2)),
+    public Student createStudent(List<String> enteredData, int studentId) {
+        return new Student(
+                studentId,
+                enteredData.get(0),
+                createGradeForOneStudent(enteredData.get(1), enteredData.get(2)),
                 LocalDateTime.now()
         );
     }

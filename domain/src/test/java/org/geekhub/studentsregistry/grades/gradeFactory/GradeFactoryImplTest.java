@@ -2,7 +2,6 @@ package org.geekhub.studentsregistry.grades.gradeFactory;
 
 import org.geekhub.studentsregistry.enums.GradeType;
 import org.geekhub.studentsregistry.interfaces.Grade;
-import org.geekhub.studentsregistry.exceptions.unchecked.InvalidGradeArgumentException;
 import org.geekhub.studentsregistry.grades.grade.*;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -48,16 +47,16 @@ public class GradeFactoryImplTest {
     public void When_GradeTypeIs2_Expect_Create2Instance() {
         GradeType gradeType = GradeType.PERCENTAGE;
         Grade actualResult = gradeFactory.createGrade(gradeType, SCORE_VALUE);
-        Grade expectResult = new GradePercent(SCORE_VALUE);
-        assertEquals(actualResult, expectResult, "The Grade must be an instance of GradePercent.");
+        Grade expectResult = new GradePercentage(SCORE_VALUE);
+        assertEquals(actualResult, expectResult, "The Grade must be an instance of GradePercentage.");
     }
 
     @Test
     public void When_GradeTypeIs3_Expect_Create3Instance() {
         GradeType gradeType = GradeType.GPA;
         Grade actualResult = gradeFactory.createGrade(gradeType, SCORE_VALUE);
-        Grade expectResult = new GradePointAverage(SCORE_VALUE);
-        assertEquals(actualResult, expectResult, "The Grade must be an instance of GradePointAverage.");
+        Grade expectResult = new GradeGPA(SCORE_VALUE);
+        assertEquals(actualResult, expectResult, "The Grade must be an instance of GradeGPA.");
     }
 
     @Test

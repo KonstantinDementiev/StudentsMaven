@@ -18,8 +18,8 @@ public class GradeFactoryImpl implements GradeFactory {
     private Grade getGradeValue(GradeType gradeType, int value) {
         return switch (gradeType) {
             case LETTER -> new GradeLetter(value);
-            case PERCENTAGE -> new GradePercent(value);
-            case GPA -> new GradePointAverage(value);
+            case PERCENTAGE -> new GradePercentage(value);
+            case GPA -> new GradeGPA(value);
             case UKRAINE -> new GradeUkraine(value);
         };
     }

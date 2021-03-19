@@ -1,7 +1,11 @@
 package org.geekhub.studentsregistry.students;
 
+import org.geekhub.studentsregistry.analytics.StudentsAnalyst;
 import org.geekhub.studentsregistry.enums.DataSourceMode;
 import org.geekhub.studentsregistry.enums.GradeType;
+import org.geekhub.studentsregistry.exceptions.checked.EmptyArgumentException;
+import org.geekhub.studentsregistry.exceptions.checked.NumberFormatArgumentException;
+import org.geekhub.studentsregistry.exceptions.checked.ZeroArgumentException;
 import org.geekhub.studentsregistry.files.StudentsFileFinder;
 import org.geekhub.studentsregistry.files.StudentsFileReader;
 import org.geekhub.studentsregistry.files.StudentsFileWriter;
@@ -10,10 +14,6 @@ import org.geekhub.studentsregistry.interfaces.DataReader;
 import org.geekhub.studentsregistry.logger.StudentsLogger;
 import org.geekhub.studentsregistry.outputconsole.ConsoleAnalyticsPrinter;
 import org.geekhub.studentsregistry.outputconsole.ConsoleStudentsPrinter;
-import org.geekhub.studentsregistry.analytics.StudentsAnalyst;
-import org.geekhub.studentsregistry.exceptions.checked.EmptyArgumentException;
-import org.geekhub.studentsregistry.exceptions.checked.NumberFormatArgumentException;
-import org.geekhub.studentsregistry.exceptions.checked.ZeroArgumentException;
 import org.geekhub.studentsregistry.printconverters.ConverterAnalyticsToPrint;
 import org.geekhub.studentsregistry.printconverters.ConverterStudentsToPrint;
 
@@ -26,6 +26,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 import java.util.stream.Collectors;
+
 
 public class StudentsRegistry {
 
@@ -77,6 +78,7 @@ public class StudentsRegistry {
     }
 
     public static void main(String[] args) {
+
         int totalStudentsCount = getTotalStudentsCount(args);
         DataSourceMode dataSourceMode = getInputMode(args);
         System.out.printf("Input mode: %s%nNew students count: %d%n", dataSourceMode, totalStudentsCount);
@@ -93,7 +95,7 @@ public class StudentsRegistry {
 
         Path existingStudentsFile = studentsFileFinder.findFile(RECORDS_FILE_NAME, RECORDS_FILE_DIRECTORY);
         List<Student> oldStudents = studentsFileReader.readStudentsFromFile(existingStudentsFile);
-        List<Student> newStudents = createStudentsList(totalStudentsCount, dataSourceMode);
+        List<Student> newStudents = createStudentsList(totalStudentsCount, dataSourceMode, oldStudents.size());
         List<Student> commonStudentsLists = getCommonStudentsLists(newStudents, oldStudents, existingStudentsFile);
         studentsFileWriter.writeStudentsToFile(commonStudentsLists, existingStudentsFile);
 
@@ -130,10 +132,10 @@ public class StudentsRegistry {
         return fileSize;
     }
 
-    private List<Student> createStudentsList(int totalStudentsCount, DataSourceMode dataSourceMode) {
+    private List<Student> createStudentsList(int totalStudentsCount, DataSourceMode dataSourceMode, int startId) {
         setForDataReaderActualImplementation(dataSourceMode);
         List<List<String>> enteredStudents = dataReader.createOriginalStudentsList(totalStudentsCount);
-        return studentsCreator.createStudentsList(enteredStudents);
+        return studentsCreator.createStudentsList(enteredStudents, startId);
     }
 
     private void setForDataReaderActualImplementation(DataSourceMode dataSourceMode) {

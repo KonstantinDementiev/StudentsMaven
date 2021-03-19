@@ -1,7 +1,7 @@
 package org.geekhub.studentsregistry.files;
 
 import org.geekhub.studentsregistry.grades.grade.GradeLetter;
-import org.geekhub.studentsregistry.grades.grade.GradePercent;
+import org.geekhub.studentsregistry.grades.grade.GradePercentage;
 import org.geekhub.studentsregistry.students.Student;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
@@ -57,16 +57,16 @@ public class StudentsFileReaderTest {
     public void reading_students_from_file_with_correct_data_is_successful() {
 
         List<Student> expectedList = new ArrayList<>();
-        expectedList.add(new Student("Mike", new GradePercent(74), LocalDateTime.MAX));
-        expectedList.add(new Student("Sam", new GradePercent(98), LocalDateTime.MAX));
-        expectedList.add(new Student("Sabrina", new GradeLetter(81), LocalDateTime.MAX));
+        expectedList.add(new Student(1,"Mike", new GradePercentage(74), LocalDateTime.MAX));
+        expectedList.add(new Student(2,"Sam", new GradePercentage(98), LocalDateTime.MAX));
+        expectedList.add(new Student(3,"Sabrina", new GradeLetter(81), LocalDateTime.MAX));
 
         try (ObjectOutputStream oos = new ObjectOutputStream(new BufferedOutputStream(
                 new FileOutputStream(String.valueOf(tempFile))))) {
             oos.writeObject(3);
-            oos.writeObject(new Student("Mike", new GradePercent(74), LocalDateTime.MAX));
-            oos.writeObject(new Student("Sam", new GradePercent(98), LocalDateTime.MAX));
-            oos.writeObject(new Student("Sabrina", new GradeLetter(81), LocalDateTime.MAX));
+            oos.writeObject(new Student(1,"Mike", new GradePercentage(74), LocalDateTime.MAX));
+            oos.writeObject(new Student(2,"Sam", new GradePercentage(98), LocalDateTime.MAX));
+            oos.writeObject(new Student(3,"Sabrina", new GradeLetter(81), LocalDateTime.MAX));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -78,14 +78,14 @@ public class StudentsFileReaderTest {
     public void reading_students_from_file_with_incorrect_start_index_return_incorrect_list() {
 
         List<Student> expectedList = new ArrayList<>();
-        expectedList.add(new Student("Mike", new GradePercent(74), LocalDateTime.MAX));
-        expectedList.add(new Student("Sam", new GradePercent(98), LocalDateTime.MAX));
+        expectedList.add(new Student(1,"Mike", new GradePercentage(74), LocalDateTime.MAX));
+        expectedList.add(new Student(2,"Sam", new GradePercentage(98), LocalDateTime.MAX));
 
         try (ObjectOutputStream oos = new ObjectOutputStream(new BufferedOutputStream(
                 new FileOutputStream(String.valueOf(tempFile))))) {
             oos.writeObject(1);
-            oos.writeObject(new Student("Mike", new GradePercent(74), LocalDateTime.MAX));
-            oos.writeObject(new Student("Sam", new GradePercent(98), LocalDateTime.MAX));
+            oos.writeObject(new Student(1,"Mike", new GradePercentage(74), LocalDateTime.MAX));
+            oos.writeObject(new Student(2,"Sam", new GradePercentage(98), LocalDateTime.MAX));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -97,15 +97,15 @@ public class StudentsFileReaderTest {
     public void reading_students_from_file_with_missing_student_data_is_successful() {
 
         List<Student> expectedList = new ArrayList<>();
-        expectedList.add(new Student("Mike", new GradePercent(74), LocalDateTime.MAX));
-        expectedList.add(new Student("Sabrina", new GradeLetter(81), LocalDateTime.MAX));
+        expectedList.add(new Student(1,"Mike", new GradePercentage(74), LocalDateTime.MAX));
+        expectedList.add(new Student(2,"Sabrina", new GradeLetter(81), LocalDateTime.MAX));
 
         try (ObjectOutputStream oos = new ObjectOutputStream(new BufferedOutputStream(
                 new FileOutputStream(String.valueOf(tempFile))))) {
             oos.writeObject(3);
-            oos.writeObject(new Student("Mike", new GradePercent(74), LocalDateTime.MAX));
+            oos.writeObject(new Student(1,"Mike", new GradePercentage(74), LocalDateTime.MAX));
             oos.writeObject(null);
-            oos.writeObject(new Student("Sabrina", new GradeLetter(81), LocalDateTime.MAX));
+            oos.writeObject(new Student(2,"Sabrina", new GradeLetter(81), LocalDateTime.MAX));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -116,12 +116,12 @@ public class StudentsFileReaderTest {
     @Test
     public void reading_students_from_file_with_lost_student_data_print_EOFException() {
         List<Student> expectedList = new ArrayList<>();
-        expectedList.add(new Student("Mike", new GradePercent(74), LocalDateTime.MAX));
+        expectedList.add(new Student(1,"Mike", new GradePercentage(74), LocalDateTime.MAX));
         try (ObjectOutputStream oos = new ObjectOutputStream(new BufferedOutputStream(
                 new FileOutputStream(String.valueOf(tempFile))))) {
             oos.writeObject(5);
             oos.writeObject(null);
-            oos.writeObject(new Student("Mike", new GradePercent(74), LocalDateTime.MAX));
+            oos.writeObject(new Student(1,"Mike", new GradePercentage(74), LocalDateTime.MAX));
             oos.writeObject(null);
         } catch (IOException e) {
             e.printStackTrace();

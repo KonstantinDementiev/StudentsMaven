@@ -4,11 +4,11 @@ import org.geekhub.studentsregistry.exceptions.unchecked.ScoreOutOfRangeExceptio
 
 import java.util.Objects;
 
-public class GradePointAverage extends GradeWithValue {
+public class GradeGPA extends GradeWithValue {
 
     private final int value;
 
-    public GradePointAverage(int value) {
+    public GradeGPA(int value) {
         super(value);
         this.value = value;
     }
@@ -35,7 +35,7 @@ public class GradePointAverage extends GradeWithValue {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        GradePointAverage that = (GradePointAverage) o;
+        GradeGPA that = (GradeGPA) o;
         return value == that.value;
     }
 

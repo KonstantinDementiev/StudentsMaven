@@ -4,10 +4,13 @@ import org.geekhub.studentsregistry.anotations.Dependency;
 import org.geekhub.studentsregistry.interfaces.Grade;
 import org.geekhub.studentsregistry.exceptions.unchecked.ScoreOutOfRangeException;
 import org.geekhub.studentsregistry.grades.grade.GradeUkraine;
+import org.springframework.stereotype.Component;
+
 
 import java.util.Comparator;
 import java.util.Optional;
 
+@Component
 @Dependency
 public class StudentsComparator implements Comparator<Student> {
 
@@ -32,7 +35,7 @@ public class StudentsComparator implements Comparator<Student> {
     private int getStudentScore(Student student) {
         Optional<Student> optionalStudent = Optional.ofNullable(student);
         return optionalStudent
-                .map(Student::grade)
+                .map(Student::getGrade)
                 .map(Grade::getValue)
                 .orElse(0);
     }
@@ -40,7 +43,7 @@ public class StudentsComparator implements Comparator<Student> {
     private boolean isGradeTypeUkrainian(Student student) {
         Optional<Student> optionalStudent = Optional.ofNullable(student);
         return optionalStudent
-                .map(Student::grade)
+                .map(Student::getGrade)
                 .map(Grade::getGrade)
                 .filter(g -> g.equals(GradeUkraine.class))
                 .isPresent();
@@ -49,7 +52,7 @@ public class StudentsComparator implements Comparator<Student> {
     private String getStudentName(Student student) {
         Optional<Student> optionalStudent = Optional.ofNullable(student);
         return optionalStudent
-                .map(Student::name)
+                .map(Student::getName)
                 .orElse("Unknown name");
     }
 

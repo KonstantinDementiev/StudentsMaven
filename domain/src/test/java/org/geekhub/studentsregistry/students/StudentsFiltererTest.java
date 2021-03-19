@@ -1,9 +1,9 @@
 
 package org.geekhub.studentsregistry.students;
 
+import org.geekhub.studentsregistry.grades.grade.GradeGPA;
 import org.geekhub.studentsregistry.grades.grade.GradeLetter;
-import org.geekhub.studentsregistry.grades.grade.GradePercent;
-import org.geekhub.studentsregistry.grades.grade.GradePointAverage;
+import org.geekhub.studentsregistry.grades.grade.GradePercentage;
 import org.geekhub.studentsregistry.enums.GradeType;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -40,9 +40,9 @@ public class StudentsFiltererTest {
 
     @Test
     public void filtered_students_are_empty_if_no_students_with_required_grade_type() {
-        studentsToFilter.add(new Student("Tom", new GradeLetter(95), DATE_TIME));
-        studentsToFilter.add(new Student("Bob", new GradePercent(80), DATE_TIME));
-        studentsToFilter.add(new Student("Alan", new GradeLetter(88), DATE_TIME));
+        studentsToFilter.add(new Student(1,"Tom", new GradeLetter(95), DATE_TIME));
+        studentsToFilter.add(new Student(2,"Bob", new GradePercentage(80), DATE_TIME));
+        studentsToFilter.add(new Student(3,"Alan", new GradeLetter(88), DATE_TIME));
         filteredStudents = studentsFilterer.groupStudentsByGrade(studentsToFilter);
         List<Student> expectedStudents = Collections.emptyList();
         assertEquals(filteredStudents.get(GradeType.GPA), expectedStudents);
@@ -50,71 +50,71 @@ public class StudentsFiltererTest {
 
     @Test
     public void filtered_students_are_only_with_required_grade_type() {
-        studentsToFilter.add(new Student("Tom", new GradeLetter(95), DATE_TIME));
-        studentsToFilter.add(new Student("Bob", new GradeLetter(80), DATE_TIME));
+        studentsToFilter.add(new Student(1,"Tom", new GradeLetter(95), DATE_TIME));
+        studentsToFilter.add(new Student(2,"Bob", new GradeLetter(80), DATE_TIME));
         filteredStudents = studentsFilterer.groupStudentsByGrade(studentsToFilter);
         List<Student> expectedStudents = new ArrayList<>();
-        expectedStudents.add(new Student("Tom", new GradeLetter(95), DATE_TIME));
-        expectedStudents.add(new Student("Bob", new GradeLetter(80), DATE_TIME));
+        expectedStudents.add(new Student(1,"Tom", new GradeLetter(95), DATE_TIME));
+        expectedStudents.add(new Student(2,"Bob", new GradeLetter(80), DATE_TIME));
         assertEquals(filteredStudents.get(GradeType.LETTER), expectedStudents);
     }
 
     @Test
     public void filtered_students_are_only_with_required_grade_type_when_input_contain_different_grade_types() {
-        studentsToFilter.add(new Student("Tom", new GradeLetter(95), DATE_TIME));
-        studentsToFilter.add(new Student("Bob", new GradePercent(80), DATE_TIME));
-        studentsToFilter.add(new Student("Alan", new GradeLetter(88), DATE_TIME));
-        studentsToFilter.add(new Student("John", new GradePointAverage(88), DATE_TIME));
+        studentsToFilter.add(new Student(1,"Tom", new GradeLetter(95), DATE_TIME));
+        studentsToFilter.add(new Student(2,"Bob", new GradePercentage(80), DATE_TIME));
+        studentsToFilter.add(new Student(3,"Alan", new GradeLetter(88), DATE_TIME));
+        studentsToFilter.add(new Student(4,"John", new GradeGPA(88), DATE_TIME));
         filteredStudents = studentsFilterer.groupStudentsByGrade(studentsToFilter);
         List<Student> expectedStudents = new ArrayList<>();
-        expectedStudents.add(new Student("Tom", new GradeLetter(95), DATE_TIME));
-        expectedStudents.add(new Student("Alan", new GradeLetter(88), DATE_TIME));
+        expectedStudents.add(new Student(1,"Tom", new GradeLetter(95), DATE_TIME));
+        expectedStudents.add(new Student(3,"Alan", new GradeLetter(88), DATE_TIME));
         assertEquals(filteredStudents.get(GradeType.LETTER), expectedStudents);
     }
 
     @Test
     public void students_filtered_by_LETTER_grade_type() {
-        studentsToFilter.add(new Student("Tom", new GradeLetter(95), DATE_TIME));
-        studentsToFilter.add(new Student("Bill", new GradePointAverage(95), DATE_TIME));
-        studentsToFilter.add(new Student("Bob", new GradePercent(80), DATE_TIME));
-        studentsToFilter.add(new Student("Alan", new GradeLetter(88), DATE_TIME));
-        studentsToFilter.add(new Student("Zara", new GradePercent(88), DATE_TIME));
-        studentsToFilter.add(new Student("John", new GradePointAverage(88), DATE_TIME));
+        studentsToFilter.add(new Student(1,"Tom", new GradeLetter(95), DATE_TIME));
+        studentsToFilter.add(new Student(2,"Bill", new GradeGPA(95), DATE_TIME));
+        studentsToFilter.add(new Student(3,"Bob", new GradePercentage(80), DATE_TIME));
+        studentsToFilter.add(new Student(4,"Alan", new GradeLetter(88), DATE_TIME));
+        studentsToFilter.add(new Student(5,"Zara", new GradePercentage(88), DATE_TIME));
+        studentsToFilter.add(new Student(6,"John", new GradeGPA(88), DATE_TIME));
         filteredStudents = studentsFilterer.groupStudentsByGrade(studentsToFilter);
         List<Student> expectedStudents = new ArrayList<>();
-        expectedStudents.add(new Student("Tom", new GradeLetter(95), DATE_TIME));
-        expectedStudents.add(new Student("Alan", new GradeLetter(88), DATE_TIME));
+        expectedStudents.add(new Student(1,"Tom", new GradeLetter(95), DATE_TIME));
+        expectedStudents.add(new Student(4,"Alan", new GradeLetter(88), DATE_TIME));
         assertEquals(filteredStudents.get(GradeType.LETTER), expectedStudents);
 
     }
 
     @Test
     public void students_filtered_by_PERCENTAGE_grade_type() {
-        studentsToFilter.add(new Student("Tom", new GradeLetter(95), DATE_TIME));
-        studentsToFilter.add(new Student("Bill", new GradePointAverage(95), DATE_TIME));
-        studentsToFilter.add(new Student("Bob", new GradePercent(80), DATE_TIME));
-        studentsToFilter.add(new Student("Alan", new GradeLetter(88), DATE_TIME));
-        studentsToFilter.add(new Student("Zara", new GradePercent(88), DATE_TIME));
-        studentsToFilter.add(new Student("John", new GradePointAverage(88), DATE_TIME));
+        studentsToFilter.add(new Student(1,"Tom", new GradeLetter(95), DATE_TIME));
+        studentsToFilter.add(new Student(2,"Bill", new GradeGPA(95), DATE_TIME));
+        studentsToFilter.add(new Student(3,"Bob", new GradePercentage(80), DATE_TIME));
+        studentsToFilter.add(new Student(4,"Alan", new GradeLetter(88), DATE_TIME));
+        studentsToFilter.add(new Student(5,"Zara", new GradePercentage(88), DATE_TIME));
+        studentsToFilter.add(new Student(6,"John", new GradeGPA(88), DATE_TIME));
         filteredStudents = studentsFilterer.groupStudentsByGrade(studentsToFilter);
         List<Student> expectedStudents = new ArrayList<>();
-        expectedStudents.add(new Student("Bob", new GradePercent(80), DATE_TIME));
-        expectedStudents.add(new Student("Zara", new GradePercent(88), DATE_TIME));
+        expectedStudents.add(new Student(3,"Bob", new GradePercentage(80), DATE_TIME));
+        expectedStudents.add(new Student(5,"Zara", new GradePercentage(88), DATE_TIME));
         assertEquals(filteredStudents.get(GradeType.PERCENTAGE), expectedStudents);
     }
 
     @Test
     public void students_filtered_by_GPA_grade_type() {
-        studentsToFilter.add(new Student("Tom", new GradeLetter(95), DATE_TIME));
-        studentsToFilter.add(new Student("Bill", new GradePointAverage(95), DATE_TIME));
-        studentsToFilter.add(new Student("Bob", new GradePercent(80), DATE_TIME));
-        studentsToFilter.add(new Student("Alan", new GradeLetter(88), DATE_TIME));
-        studentsToFilter.add(new Student("Zara", new GradePercent(88), DATE_TIME));
-        studentsToFilter.add(new Student("John", new GradePointAverage(88), DATE_TIME));
+        studentsToFilter.add(new Student(1,"Tom", new GradeLetter(95), DATE_TIME));
+        studentsToFilter.add(new Student(2,"Bill", new GradeGPA(95), DATE_TIME));
+        studentsToFilter.add(new Student(3,"Bob", new GradePercentage(80), DATE_TIME));
+        studentsToFilter.add(new Student(4,"Alan", new GradeLetter(88), DATE_TIME));
+        studentsToFilter.add(new Student(5,"Zara", new GradePercentage(88), DATE_TIME));
+        studentsToFilter.add(new Student(6,"John", new GradeGPA(88), DATE_TIME));
         filteredStudents = studentsFilterer.groupStudentsByGrade(studentsToFilter);
         List<Student> expectedStudents = new ArrayList<>();
-        expectedStudents.add(new Student("Bill", new GradePointAverage(95), DATE_TIME));
-        expectedStudents.add(new Student("John", new GradePointAverage(88), DATE_TIME));
+        expectedStudents.add(new Student(2,"Bill", new GradeGPA(95), DATE_TIME));
+        expectedStudents.add(new Student(6,"John", new GradeGPA(88), DATE_TIME));
         assertEquals(filteredStudents.get(GradeType.GPA), expectedStudents);
     }
 

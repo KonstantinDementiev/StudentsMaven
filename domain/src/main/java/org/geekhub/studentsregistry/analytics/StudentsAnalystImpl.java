@@ -43,8 +43,8 @@ public class StudentsAnalystImpl implements StudentsAnalyst {
     public Optional<Integer> medianScore(List<Student> students) {
         List<Student> optionalStudents = Optional.ofNullable(students).orElse(new ArrayList<>());
         List<Integer> gradesWithValue = optionalStudents.stream()
-                .filter(s -> s.grade() instanceof GradeWithValue)
-                .map(Student::grade)
+                .filter(s -> s.getGrade() instanceof GradeWithValue)
+                .map(Student::getGrade)
                 .map(Grade::getValue)
                 .sorted()
                 .collect(Collectors.toList());
@@ -62,8 +62,8 @@ public class StudentsAnalystImpl implements StudentsAnalyst {
         List<Student> optionalStudents = Optional.ofNullable(students).orElse(new ArrayList<>());
         if (isIncomingStudentsNotSame(optionalStudents)) {
             summaryStatistics = optionalStudents.stream()
-                    .filter(s -> s.grade() instanceof GradeWithValue)
-                    .map(Student::grade)
+                    .filter(s -> s.getGrade() instanceof GradeWithValue)
+                    .map(Student::getGrade)
                     .mapToInt(Grade::getValue)
                     .summaryStatistics();
             existingStudents = students;

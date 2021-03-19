@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>All students</title>
+    <style type="text/css">
+        .tg {
+            border-collapse: collapse;
+            border-spacing: 0;
+            border-color: #b8b5b5;
+        }
+
+        .tg th {
+            font-family: Calibri, sans-serif;
+            font-size: 14px;
+            padding: 10px 5px;
+            border-style: solid;
+            border-width: 1px;
+            overflow: hidden;
+            word-break: normal;
+            border-color: #ccc;
+            color: #333;
+            background-color: #dbdbdb;
+        }
+
+        .tg td {
+            font-family: Calibri, sans-serif;
+            font-size: 14px;
+            font-weight: normal;
+            text-align: center;
+            padding: 10px 5px;
+            border-style: solid;
+            border-width: 1px;
+            overflow: hidden;
+            word-break: normal;
+            border-color: #ccc;
+            color: #333;
+            background-color: #f6f6f6;
+        }
+    </style>
+</head>
+
+<body style="margin-left: 100px; margin-right: 100px">
+
+<header style="background-color:#fffbd9; height:30px; font-weight: bold; font-size: x-large;">
+    <p>Students registry</p>
+</header>
+
+<br>
+<form th:method="GET" th:action="@{/students/new}">
+    <input style="background-color: rgba(183,250,165,0.56); border-width: thin" type="submit"
+           value="Create new students"/>
+</form>
+
+<h3 th:text="'Total students count: ' + ${studentsCount} + ' students'">All students</h3>
+
+
+<div th:each="gradeGroup : ${gradeTypes}">
+
+    <a style="font-family: Arial; font-size: 14px"
+       th:text="'With grade type - ' + ${gradeGroup} + ' - ' + ${students.get(gradeGroup).size()} + ' students:'">gradeType</a>
+
+    <table class="tg">
+        <tr>
+            <th width="60">ID</th>
+            <th width="150">Name</th>
+            <th width="150">Grade value</th>
+            <th width="150">Exam Date</th>
+            <th width="60">Edit</th>
+            <th width="60">Delete</th>
+        </tr>
+        <div th:each="student : ${students.get(gradeGroup)}">
+            <tr>
+                <td><a th:text="${student.getId()}">id</a></td>
+                <td><a th:text="${student.getName()}">name</a></td>
+                <td><a th:text="${student.getGrade().asPrintVersion()}">grade</a></td>
+                <td>
+                    <a th:text="${student.getExamDate().toLocalDate() + ', ' + student.getExamDate().toLocalTime()}">date</a>
+                </td>
+                <td>
+                    <form th:method="GET" th:action="@{/students/{id}/edit(id=${student.getId()})}">
+                        <input style="background-color: rgba(184,184,252,0.53); border-width: thin" type="submit"
+                               value="Edit"/>
+                    </form>
+                </td>
+                <td>
+                    <form th:method="DELETE" th:action="@{/students/{id}/delete(id=${student.getId()})}">
+                        <input style="background-color: rgba(250,165,181,0.56); border-width: thin" type="submit"
+                               value="Delete"/>
+                    </form>
+                </td>
+            </tr>
+        </div>
+    </table>
+
+    <br>
+
+</div>
+
+
+</body>
+</html>

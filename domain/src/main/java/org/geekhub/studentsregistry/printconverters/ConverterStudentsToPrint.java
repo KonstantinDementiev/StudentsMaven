@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+
 @Dependency
 public class ConverterStudentsToPrint {
 
@@ -31,12 +32,12 @@ public class ConverterStudentsToPrint {
 
     private HashMap<String, String> createNewStudentToPrint(Student student) {
         HashMap<String, String> newStudent = new HashMap<>();
-        newStudent.put("Name", student.name());
-        newStudent.put("Grade", student.grade().asPrintVersion());
+        newStudent.put("Name", student.getName());
+        newStudent.put("Grade", student.getGrade().asPrintVersion());
         return newStudent;
     }
 
-    public List<String> getStudentsTableToPrint(GradeType gradeType, List<HashMap<String, String>> studentsToPrint) {
+    private List<String> getStudentsTableToPrint(GradeType gradeType, List<HashMap<String, String>> studentsToPrint) {
         List<String> resultList = new ArrayList<>();
         String tableTitle = "\nWith " + getValidGradeType(gradeType) + " Grade " + studentsToPrint.size() + " students:";
         resultList.add(tableTitle);
@@ -94,9 +95,11 @@ public class ConverterStudentsToPrint {
 
     private String aligningTextInTheMiddleOfTableColumn(String str) {
         final int NUMBER_OF_SIDE_SPACES = (WIDTH_COLUMN[1] - str.length()) / 2;
-        return " ".repeat(NUMBER_OF_SIDE_SPACES) +
-                str +
-                " ".repeat(NUMBER_OF_SIDE_SPACES);
+        String rightSpace = str.length() % 2 == 0 ? " " : "";
+        return " ".repeat(NUMBER_OF_SIDE_SPACES)
+                + str
+                + " ".repeat(NUMBER_OF_SIDE_SPACES)
+                + rightSpace;
     }
 
     private String printDelimiterLine() {

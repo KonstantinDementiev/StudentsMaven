@@ -1,8 +1,8 @@
 package org.geekhub.studentsregistry.files;
 
+import org.geekhub.studentsregistry.grades.grade.GradeGPA;
 import org.geekhub.studentsregistry.grades.grade.GradeLetter;
-import org.geekhub.studentsregistry.grades.grade.GradePercent;
-import org.geekhub.studentsregistry.grades.grade.GradePointAverage;
+import org.geekhub.studentsregistry.grades.grade.GradePercentage;
 import org.geekhub.studentsregistry.students.Student;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -33,14 +33,14 @@ public class StudentsFileWriterTest {
 
     @Test(expectedExceptions = IllegalArgumentException.class)
     public void writing_students_to_file_with_null_path_is_throw_exception() {
-        studentsToAdd.add(new Student("Tom", new GradeLetter(95), LocalDateTime.now()));
+        studentsToAdd.add(new Student(1,"Tom", new GradeLetter(95), LocalDateTime.now()));
         studentsFileWriter.writeStudentsToFile(studentsToAdd, null);
     }
 
     @Test(expectedExceptions = IllegalArgumentException.class)
     public void writing_students_to_file_with_incorrect_path_is_throw_exception() {
         Path file = Paths.get("W:\\Users\\Students.dat");
-        studentsToAdd.add(new Student("Tom", new GradeLetter(95), LocalDateTime.now()));
+        studentsToAdd.add(new Student(1, "Tom", new GradeLetter(95), LocalDateTime.now()));
         studentsFileWriter.writeStudentsToFile(studentsToAdd, file);
     }
 
@@ -51,9 +51,9 @@ public class StudentsFileWriterTest {
 
     @Test
     public void writing_students_to_file_with_correct_path_is_successful() {
-        studentsToAdd.add(new Student("Tom", new GradeLetter(95), LocalDateTime.now()));
-        studentsToAdd.add(new Student("Bob", new GradePercent(80), LocalDateTime.now()));
-        studentsToAdd.add(new Student("Alan", new GradePointAverage(88), LocalDateTime.now()));
+        studentsToAdd.add(new Student(1, "Tom", new GradeLetter(95), LocalDateTime.now()));
+        studentsToAdd.add(new Student(2, "Bob", new GradePercentage(80), LocalDateTime.now()));
+        studentsToAdd.add(new Student(3, "Alan", new GradeGPA(88), LocalDateTime.now()));
         studentsFileWriter.writeStudentsToFile(studentsToAdd, file);
     }
 

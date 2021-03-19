@@ -3,9 +3,11 @@ package org.geekhub.studentsregistry.students;
 import org.geekhub.studentsregistry.anotations.Dependency;
 import org.geekhub.studentsregistry.enums.GradeType;
 import org.geekhub.studentsregistry.grades.grade.MapClassToGradeType;
+import org.springframework.stereotype.Component;
 
 import java.util.*;
 
+@Component
 @Dependency
 public class StudentsFilterer {
 
@@ -31,7 +33,7 @@ public class StudentsFilterer {
     }
 
     private boolean isGradeTypeTheSame(GradeType gropeGradeType, Student student) {
-        GradeType studentGradeType = gradeMap.get(student.grade().getGrade());
+        GradeType studentGradeType = gradeMap.get(student.getGrade().getGrade());
         return gropeGradeType.equals(studentGradeType);
     }
 

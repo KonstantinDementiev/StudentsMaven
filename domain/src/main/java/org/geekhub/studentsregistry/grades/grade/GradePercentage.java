@@ -4,11 +4,11 @@ import org.geekhub.studentsregistry.exceptions.unchecked.ScoreOutOfRangeExceptio
 
 import java.util.Objects;
 
-public class GradePercent extends GradeWithValue {
+public class GradePercentage extends GradeWithValue {
 
     private final int value;
 
-    public GradePercent(int value) {
+    public GradePercentage(int value) {
         super(value);
         this.value = value;
     }
@@ -35,7 +35,7 @@ public class GradePercent extends GradeWithValue {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        GradePercent that = (GradePercent) o;
+        GradePercentage that = (GradePercentage) o;
         return value == that.value;
     }
 

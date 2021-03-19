@@ -1,4 +1,4 @@
-package org.geekhub.studentsregistry.reflection;
+package org.geekhub.studentsregistry.classloaders;
 
 import org.geekhub.studentsregistry.students.StudentsCreator;
 import org.testng.Assert;

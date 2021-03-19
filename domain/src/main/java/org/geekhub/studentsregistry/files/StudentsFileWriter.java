@@ -3,6 +3,8 @@ package org.geekhub.studentsregistry.files;
 import org.geekhub.studentsregistry.anotations.Dependency;
 import org.geekhub.studentsregistry.logger.StudentsLogger;
 import org.geekhub.studentsregistry.students.Student;
+import org.springframework.stereotype.Component;
+
 
 import java.io.BufferedOutputStream;
 import java.io.FileOutputStream;
@@ -13,6 +15,7 @@ import java.nio.file.Path;
 import java.util.List;
 import java.util.Optional;
 
+@Component
 @Dependency
 public class StudentsFileWriter {
 

@@ -2,6 +2,8 @@ package org.geekhub.studentsregistry.files;
 
 import org.geekhub.studentsregistry.anotations.Dependency;
 import org.geekhub.studentsregistry.logger.StudentsLogger;
+import org.springframework.stereotype.Component;
+
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -11,6 +13,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+@Component
 @Dependency
 public class StudentsFileFinder {
 

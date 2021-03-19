@@ -1,4 +1,4 @@
-package org.geekhub.studentsregistry.reflection;
+package org.geekhub.studentsregistry.classloaders;
 
 import java.io.File;
 import java.io.FileInputStream;
