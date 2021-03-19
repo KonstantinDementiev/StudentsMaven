@@ -27,8 +27,7 @@
             font-family: Calibri, sans-serif;
             font-size: 14px;
             font-weight: normal;
-            text-align: center;
-            padding: 10px 5px;
+            padding: 5px 5px;
             border-style: solid;
             border-width: 1px;
             overflow: hidden;
@@ -50,16 +49,15 @@
 
 <table class="tg">
     <tr>
-        <th width="300">MANUAL</th>
-        <th width="300">RANDOM</th>
+        <th>Manual GRADE input</th>
     </tr>
     <tr>
         <td>
-            <form th:method="POST" th:action="@{/students/create}" th:object="${studentData}">
-                <table style="margin-left: 20px">
+            <form th:method="POST" th:action="@{/students/create/grade}" th:object="${studentData}">
+                <table>
                     <tr>
-                        <td>
-                            <label for="id">ID</label>
+                        <td style="width: 120px">
+                            <label for="id">Student ID</label>
                         </td>
                         <td>
                             <input type="hidden" th:name="currentId" th:value="${studentId}">
@@ -78,38 +76,39 @@
                             <input type="text" th:field="*{name}" id="name"/>
                         </td>
                     </tr>
+
                     <tr>
                         <td>
-                            <label for="score">Enter score:</label>
+                            <label for="grade">Choose grade value:</label>
                         </td>
                         <td>
-                            <div style="color: red; font-size: 12px; width: 160px"
-                                 th:if="${#fields.hasErrors('score')}" th:errors="*{score}">Score error
-                            </div>
-                            <input type="text" th:field="*{score}" id="score"/>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <label for="grade">Enter grade type:</label>
-                        </td>
-                        <td>
-                            <select style="width: 170px; font-size: 14px"
-                                    th:field="*{gradeType}" id="grade">
-                                <div th:each="gradeGroup : ${gradeTypes}">
-                                    <option th:value="${gradeGroup}" th:text="${gradeGroup}"></option>
+                            <div style="width: 160px; font-size: 14px" id="grade">
+                                <div th:each="gradeGroup, iterStat : ${gradeTypes}">
+                                    <input type="radio" checked="checked" th:field="*{gradeType}"
+                                           name="gradeTypes" th:value="${gradeGroup}">
+                                    <label th:for="${gradeGroup}" th:text="${gradeGroup}">gradeType</label>
                                 </div>
-                            </select>
+                            </div>
+                        </td>
+                        <td>
+                            <div th:each="gradesValue : ${gradesValues}">
+                                <select style="width: 120px" th:field="*{realGrade}">
+                                    <div th:each="grade : ${gradesValue}">
+                                        <option th:value="${grade}" th:text="${grade}"></option>
+                                    </div>
+                                </select>
+                            </div>
                         </td>
                     </tr>
                 </table>
                 <br>
-                <input style="width: 100px; background-color: rgba(183,250,165,0.56); border-width: thin" type="submit"
-                       value="Create!"/>
+                <input style="width: 100px; background-color: rgba(183,250,165,0.56); border-width: thin;
+                       position: relative; left: 50%;transform: translate(-50%, 0);"
+                       type="submit" value="Create!"/>
             </form>
         </td>
-        <td></td>
     </tr>
+
 </table>
 <br>
 

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>All students</title>
+    <style type="text/css">
+        .tg {
+            border-collapse: collapse;
+            border-spacing: 0;
+            border-color: #b8b5b5;
+        }
+
+        .tg th {
+            font-family: Calibri, sans-serif;
+            font-size: 14px;
+            padding: 10px 5px;
+            border-style: solid;
+            border-width: 1px;
+            overflow: hidden;
+            word-break: normal;
+            border-color: #ccc;
+            color: #333;
+            background-color: #dbdbdb;
+        }
+
+        .tg td {
+            font-family: Calibri, sans-serif;
+            font-size: 14px;
+            font-weight: normal;
+            text-align: center;
+            padding: 10px 5px;
+            border-style: solid;
+            border-width: 1px;
+            overflow: hidden;
+            word-break: normal;
+            border-color: #ccc;
+            color: #333;
+            background-color: #f6f6f6;
+        }
+    </style>
+</head>
+
+<body style="margin-left: 100px; margin-right: 100px">
+
+<header style="background-color:#fffbd9; height:30px; font-weight: bold; font-size: x-large;">
+    <p>Students registry</p>
+</header>
+
+<h3>Add students</h3>
+
+<form th:method="POST" th:action="@{/students/create/random}">
+    <label for="random">Number of students:</label>
+    <input style="width: 60px; background-color: rgb(218,227,253); border-width: 2px"
+           type="text" th:name="randomNumber" id="random"/>
+    <input style="width: 200px; background-color: rgba(183,250,165,0.56); border-width: thin"
+           type="submit" value="Generate random students"/>
+</form>
+
+<br>
+<a href="/students">View all students</a>
+
+</body>
+</html>

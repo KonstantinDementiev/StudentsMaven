@@ -12,7 +12,7 @@ public enum GradeType {
             allGradeTypes.append(gradeType.name()).append(", ");
         }
         throw new IllegalArgumentException("Incorrect Grade Type. Please, enter one of next Grade types: "
-                + allGradeTypes.toString() + " you can use lower case");
+                + allGradeTypes.toString());
     }
 
 }

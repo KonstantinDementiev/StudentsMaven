@@ -47,10 +47,26 @@
 </header>
 
 <br>
-<form th:method="GET" th:action="@{/students/new}">
-    <input style="background-color: rgba(183,250,165,0.56); border-width: thin" type="submit"
-           value="Create new students"/>
-</form>
+<table>
+    <th>
+        <form th:method="GET" th:action="@{/students/new/score}">
+            <input style="background-color: rgba(183,250,165,0.56); border-width: thin; width: 200px"
+                   type="submit" value="Create students with SCORE"/>
+        </form>
+    </th>
+    <th style="padding-left: 20px">
+        <form th:method="GET" th:action="@{/students/new/grade}">
+            <input style="background-color: rgba(183,250,165,0.56); border-width: thin; width: 200px"
+                   type="submit" value="Create students with GRADE"/>
+        </form>
+    </th>
+    <th style="padding-left: 20px">
+        <form th:method="GET" th:action="@{/students/new/random}">
+            <input style="background-color: rgba(183,250,165,0.56); border-width: thin; width: 200px"
+                   type="submit" value="Create RANDOM students"/>
+        </form>
+    </th>
+</table>
 
 <h3 th:text="'Total students count: ' + ${studentsCount} + ' students'">All students</h3>
 

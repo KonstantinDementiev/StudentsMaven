@@ -27,7 +27,7 @@
             font-family: Calibri, sans-serif;
             font-size: 14px;
             font-weight: normal;
-            padding: 10px 5px;
+            padding: 5px 5px;
             border-style: solid;
             border-width: 1px;
             overflow: hidden;
@@ -45,24 +45,22 @@
     <p>Students registry</p>
 </header>
 
-<h3>Edit student</h3>
+<h3>Add students</h3>
 
 <table class="tg">
     <tr>
-        <th>EDIT BY SCORE</th>
-        <th>EDIT BY GRADE</th>
+        <th>Manual SCORE input</th>
     </tr>
     <tr>
         <td>
-            <form th:method="POST"
-                  th:action="@{/students/{id}/update/score(id=${studentId})}"
-                  th:object="${studentData}">
+            <form th:method="POST" th:action="@{/students/create/score}" th:object="${studentData}">
                 <table>
                     <tr>
-                        <td>
-                            <label for="id">ID</label>
+                        <td style="width: 170px">
+                            <label for="id">Student ID</label>
                         </td>
                         <td>
+                            <input type="hidden" th:name="currentId" th:value="${studentId}">
                             <input readonly style="background-color: #b8b5b5; border-width: thin"
                                    type="text" th:value="${studentId}" id="id"/>
                         </td>
@@ -78,8 +76,9 @@
                             <input type="text" th:field="*{name}" id="name"/>
                         </td>
                     </tr>
+
                     <tr>
-                        <td>
+                        <td style="width: 170px">
                             <label for="score">Enter score:</label>
                         </td>
                         <td>
@@ -104,69 +103,14 @@
                     </tr>
                 </table>
                 <br>
+
                 <input style="width: 100px; background-color: rgba(183,250,165,0.56); border-width: thin;
                        position: relative; left: 50%;transform: translate(-50%, 0);"
-                       type="submit" value="Update!"/>
-            </form>
-        </td>
-        <td>
-
-            <form th:method="POST"
-                  th:action="@{/students/{id}/update/grade(id=${studentId})}"
-                  th:object="${studentData}">
-                <table>
-                    <tr>
-                        <td style="width: 120px">
-                            <label for="id2">Student ID</label>
-                        </td>
-                        <td>
-                            <input readonly style="background-color: #b8b5b5; border-width: thin"
-                                   type="text" th:value="${studentId}" id="id2"/>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <label for="name2">Enter name:</label>
-                        </td>
-                        <td>
-                            <div style="color: red; font-size: 12px; width: 160px"
-                                 th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name error
-                            </div>
-                            <input type="text" th:field="*{name}" id="name2"/>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td>
-                            <label for="grade">Choose grade value:</label>
-                        </td>
-                        <td>
-                            <div style="width: 160px; font-size: 14px" id="grade2">
-                                <div th:each="gradeGroup, iterStat : ${gradeTypes}">
-                                    <input type="radio" checked="checked" th:field="*{gradeType}"
-                                           name="gradeTypes" th:value="${gradeGroup}">
-                                    <label th:for="${gradeGroup}" th:text="${gradeGroup}">gradeType</label>
-                                </div>
-                            </div>
-                        </td>
-                        <td>
-                            <div th:each="gradesValue : ${gradesValues}">
-                                <select style="width: 120px" th:field="*{realGrade}">
-                                    <div th:each="grade : ${gradesValue}">
-                                        <option th:value="${grade}" th:text="${grade}"></option>
-                                    </div>
-                                </select>
-                            </div>
-                        </td>
-                    </tr>
-                </table>
-                <br>
-                <input style="width: 100px; background-color: rgba(183,250,165,0.56); border-width: thin;
-                       position: relative; left: 50%;transform: translate(-50%, 0);"
-                       type="submit" value="Update!"/>
+                       type="submit" value="Create!"/>
             </form>
         </td>
     </tr>
+
 </table>
 <br>
 

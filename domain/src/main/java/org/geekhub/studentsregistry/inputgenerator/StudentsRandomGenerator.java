@@ -3,10 +3,12 @@ package org.geekhub.studentsregistry.inputgenerator;
 import org.geekhub.studentsregistry.anotations.Dependency;
 import org.geekhub.studentsregistry.enums.GradeType;
 import org.geekhub.studentsregistry.interfaces.DataReader;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Component
 @Dependency
 public class StudentsRandomGenerator implements DataReader {
 

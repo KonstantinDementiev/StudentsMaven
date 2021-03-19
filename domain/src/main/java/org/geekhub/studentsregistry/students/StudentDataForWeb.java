@@ -1,5 +1,6 @@
 package org.geekhub.studentsregistry.students;
 
+import org.geekhub.studentsregistry.enums.GradeType;
 import org.hibernate.validator.constraints.Range;
 
 import javax.validation.constraints.*;
@@ -20,6 +21,7 @@ public class StudentDataForWeb {
     private String realGrade;
 
     public StudentDataForWeb() {
+        this.gradeType = GradeType.values()[0].name();
     }
 
     public StudentDataForWeb(int id, String name, int score, String gradeType) {
