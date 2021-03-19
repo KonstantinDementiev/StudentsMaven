@@ -87,4 +87,8 @@ public class StudentDAO {
         return read().size();
     }
 
+    public int getMaxId(){
+        return read().stream().map(Student::getId).max(Integer::compareTo).orElse(0);
+    }
+
 }
