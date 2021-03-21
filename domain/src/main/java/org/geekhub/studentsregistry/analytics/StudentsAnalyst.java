@@ -2,6 +2,7 @@ package org.geekhub.studentsregistry.analytics;
 
 import org.geekhub.studentsregistry.anotations.Dependency;
 import org.geekhub.studentsregistry.students.Student;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Optional;

@@ -1,10 +1,10 @@
 package org.geekhub.studentsregistry.web.controllers;
 
+import org.geekhub.studentsregistry.converters.ConverterAnalyticsToWeb;
+import org.geekhub.studentsregistry.converters.ConverterStudentToWeb;
 import org.geekhub.studentsregistry.enums.*;
-import org.geekhub.studentsregistry.grades.grade.RealGradeParser;
 import org.geekhub.studentsregistry.students.Student;
 import org.geekhub.studentsregistry.students.StudentDataForWeb;
-import org.geekhub.studentsregistry.students.StudentsCreator;
 import org.geekhub.studentsregistry.web.dao.StudentDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/students")
@@ -21,23 +22,29 @@ public class StudentsController {
 
     private static final GradeType[] GRADE_TYPES = GradeType.values();
     private final StudentDAO studentDAO;
-    private final StudentsCreator studentsCreator;
-    private final RealGradeParser realGradeParser;
+    private final ConverterStudentToWeb converterStudentToWeb;
+    private final ConverterAnalyticsToWeb converterAnalyticsToWeb;
 
     @Autowired
-    public StudentsController(
-            StudentDAO studentDAO,
-            StudentsCreator studentsCreator,
-            RealGradeParser realGradeParser
-    ) {
+    public StudentsController(StudentDAO studentDAO,
+                              ConverterStudentToWeb converterStudentToWeb,
+                              ConverterAnalyticsToWeb converterAnalyticsToWeb) {
         this.studentDAO = studentDAO;
-        this.studentsCreator = studentsCreator;
-        this.realGradeParser = realGradeParser;
+        this.converterStudentToWeb = converterStudentToWeb;
+        this.converterAnalyticsToWeb = converterAnalyticsToWeb;
     }
 
     @GetMapping
+    public String invite() {
+        return "hello";
+    }
+
+    @GetMapping("all")
     public String index(Model model) {
-        model.addAttribute("students", studentDAO.show());
+        Map<GradeType, List<Student>> students = studentDAO.show();
+        Map<GradeType, List<String>> analytics = converterAnalyticsToWeb.getAllAnalytics(students);
+        model.addAttribute("students", students);
+        model.addAttribute("analytics", analytics);
         model.addAttribute("gradeTypes", GRADE_TYPES);
         model.addAttribute("studentsCount", studentDAO.getStudentsCount());
         return "show";
@@ -62,7 +69,7 @@ public class StudentsController {
         studentData.setId(id);
         if (bindingResult.hasErrors()) return "new/score";
         model.addAttribute("studentId", id + 1);
-        studentDAO.save(createStudentFromScore(studentData));
+        studentDAO.save(converterStudentToWeb.createStudentFromScore(studentData));
         return "new/score";
     }
 
@@ -87,7 +94,7 @@ public class StudentsController {
         studentData.setId(id);
         if (bindingResult.hasErrors()) return "new/grade";
         model.addAttribute("studentId", id + 1);
-        studentDAO.save(createStudentFromGrade(studentData));
+        studentDAO.save(converterStudentToWeb.createStudentFromGrade(studentData));
         return "new/grade";
     }
 
@@ -98,8 +105,8 @@ public class StudentsController {
 
     @PostMapping("/create/random")
     public String generateStudentsRandom(@RequestParam("randomNumber") int number) {
-        studentDAO.generate(number);
-        return "redirect:/students";
+        studentDAO.generateNewStudents(number);
+        return "redirect:/students/all";
     }
 
     @GetMapping("/{id}/edit")
@@ -113,56 +120,34 @@ public class StudentsController {
 
     @PostMapping("/{id}/update/score")
     public String updateScore(Model model,
-                         @PathVariable("id") int id,
-                         @ModelAttribute("studentData") @Valid StudentDataForWeb studentData,
-                         BindingResult bindingResult) {
+                              @PathVariable("id") int id,
+                              @ModelAttribute("studentData") @Valid StudentDataForWeb studentData,
+                              BindingResult bindingResult) {
         model.addAttribute("gradeTypes", GRADE_TYPES);
         model.addAttribute("studentId", id);
         model.addAttribute("gradesValues", getAllRealGrades());
         if (bindingResult.hasErrors()) return "edit";
-        studentDAO.update(id, createStudentFromScore(studentData));
-        return "redirect:/students";
+        studentDAO.update(id, converterStudentToWeb.createStudentFromScore(studentData));
+        return "redirect:/students/all";
     }
 
     @PostMapping("/{id}/update/grade")
     public String updateGrade(Model model,
-                         @PathVariable("id") int id,
-                         @ModelAttribute("studentData") @Valid StudentDataForWeb studentData,
-                         BindingResult bindingResult) {
+                              @PathVariable("id") int id,
+                              @ModelAttribute("studentData") @Valid StudentDataForWeb studentData,
+                              BindingResult bindingResult) {
         model.addAttribute("gradeTypes", GRADE_TYPES);
         model.addAttribute("studentId", id);
         model.addAttribute("gradesValues", getAllRealGrades());
         if (bindingResult.hasErrors()) return "edit";
-        studentDAO.update(id, createStudentFromGrade(studentData));
-        return "redirect:/students";
+        studentDAO.update(id, converterStudentToWeb.createStudentFromGrade(studentData));
+        return "redirect:/students/all";
     }
 
     @PostMapping("/{id}/delete")
     public String remove(@PathVariable("id") int id) {
         studentDAO.delete(id);
-        return "redirect:/students";
-    }
-
-    private Student createStudentFromScore(StudentDataForWeb data) {
-        List<String> paramsForNewStudent = List.of(
-                data.getName(), String.valueOf(data.getScore()), data.getGradeType());
-        return studentsCreator.createStudent(paramsForNewStudent, data.getId());
-    }
-
-    private Student createStudentFromGrade(StudentDataForWeb data) {
-        int score = realGradeParser.getScoreFromGrade(data.getRealGrade(), data.getGradeType());
-        List<String> paramsForNewStudent = List.of(
-                data.getName(), String.valueOf(score), data.getGradeType());
-        return studentsCreator.createStudent(paramsForNewStudent, data.getId());
-    }
-
-    private StudentDataForWeb getDataFromStudent(int id) {
-        Student student = studentDAO.showOne(id);
-        return new StudentDataForWeb(
-                id,
-                student.getName(),
-                student.getGrade().getValue(),
-                student.getGrade().getGrade().getSimpleName().substring(5).toUpperCase());
+        return "redirect:/students/all";
     }
 
     private List<List<String>> getAllRealGrades() {
@@ -173,4 +158,12 @@ public class StudentsController {
         return List.of(letter, percentage, gpa, ukraine);
     }
 
+    private StudentDataForWeb getDataFromStudent(int id) {
+        Student student = studentDAO.showOne(id);
+        return new StudentDataForWeb(
+                id,
+                student.getName(),
+                student.getGrade().getValue(),
+                student.getGrade().getGrade().getSimpleName().substring(5).toUpperCase());
+    }
 }

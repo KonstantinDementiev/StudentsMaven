@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Login page</title>
@@ -7,20 +7,29 @@
 
 <body style="margin-left: 100px; margin-right: 100px">
 
-<header style="background-color:khaki; height:40px; font-weight: bold; font-size: xx-large;">
+<header style="background-color:#fffbd9; height:30px; font-weight: bold; font-size: x-large;">
     <p>Login page</p>
 </header>
 
-<form th:method="POST" th:action="@{/people}" th:object="${person}">
+<form th:method="POST" th:action="@{/login}">
     <br>
     <br>
-    <label for="userType">User login:</label>
-    <select id="userType" name = "user">
-        <option value="user">User</option>
-        <option value="admin">Admin</option>
-    </select>
+    <div>
+        <label for="userType">User login:</label>
+        <input style="width: 150px; margin-left: 20px" type="text" id="userType" name="username">
+    </div>
+    <br>
+    <div>
+        <label> Password: <input style="width: 150px; margin-left: 25px" type="password" name="password"/></label>
+    </div>
+    <br>
     <input type="submit" value="Login"/>
-
 </form>
+
+<p>Have no account? <a th:href="@{/registration}">Register now!</a></p>
+
+<div style="color: red" th:if="${param.error}">Invalid username or password.</div>
+<div style="color: #1418bd" th:if="${param.logout}"> You have been logged out.</div>
+
 </body>
 </html>

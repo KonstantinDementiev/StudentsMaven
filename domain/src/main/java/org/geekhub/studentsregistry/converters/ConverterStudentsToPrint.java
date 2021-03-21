@@ -1,4 +1,4 @@
-package org.geekhub.studentsregistry.printconverters;
+package org.geekhub.studentsregistry.converters;
 
 import org.geekhub.studentsregistry.anotations.Dependency;
 import org.geekhub.studentsregistry.enums.GradeType;

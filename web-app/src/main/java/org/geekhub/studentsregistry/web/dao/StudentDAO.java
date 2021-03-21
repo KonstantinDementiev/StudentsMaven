@@ -27,6 +27,6 @@ public interface StudentDAO {
 
     int getMaxId();
 
-    void generate(int studentsQuantity);
+    void generateNewStudents(int studentsQuantity);
 
 }

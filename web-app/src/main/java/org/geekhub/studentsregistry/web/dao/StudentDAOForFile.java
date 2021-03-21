@@ -110,7 +110,7 @@ public class StudentDAOForFile implements StudentDAO {
     }
 
     @Override
-    public void generate(int studentsQuantity){
+    public void generateNewStudents(int studentsQuantity){
         List<List<String>> newStudentsData = studentsRandomGenerator.createOriginalStudentsList(studentsQuantity);
         List<Student> newStudents = studentsCreator.createStudentsList(newStudentsData, getMaxId());
         List<Student> studentsFromFile = read();

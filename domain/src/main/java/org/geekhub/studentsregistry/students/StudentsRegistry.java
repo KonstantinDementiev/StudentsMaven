@@ -14,8 +14,8 @@ import org.geekhub.studentsregistry.interfaces.DataReader;
 import org.geekhub.studentsregistry.logger.StudentsLogger;
 import org.geekhub.studentsregistry.outputconsole.ConsoleAnalyticsPrinter;
 import org.geekhub.studentsregistry.outputconsole.ConsoleStudentsPrinter;
-import org.geekhub.studentsregistry.printconverters.ConverterAnalyticsToPrint;
-import org.geekhub.studentsregistry.printconverters.ConverterStudentsToPrint;
+import org.geekhub.studentsregistry.converters.ConverterAnalyticsToPrint;
+import org.geekhub.studentsregistry.converters.ConverterStudentsToPrint;
 
 import java.io.IOException;
 import java.lang.reflect.Field;

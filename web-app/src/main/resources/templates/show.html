@@ -46,6 +46,14 @@
     <p>Students registry</p>
 </header>
 
+<form th:action="@{/logout}" method="POST">
+    <div>
+        <h4 th:inline="text">Hello, [[${#httpServletRequest.remoteUser}]]!
+            <input style="margin-left: 20px" type="submit" value="Sign Out"/>
+        </h4>
+    </div>
+</form>
+
 <br>
 <table>
     <th>
@@ -70,12 +78,10 @@
 
 <h3 th:text="'Total students count: ' + ${studentsCount} + ' students'">All students</h3>
 
-
 <div th:each="gradeGroup : ${gradeTypes}">
 
     <a style="font-family: Arial; font-size: 14px"
        th:text="'With grade type - ' + ${gradeGroup} + ' - ' + ${students.get(gradeGroup).size()} + ' students:'">gradeType</a>
-
     <table class="tg">
         <tr>
             <th width="60">ID</th>
@@ -108,9 +114,10 @@
             </tr>
         </div>
     </table>
-
+    <div th:each="analyticsLine : ${analytics.get(gradeGroup)}">
+        <p style="font-size: 12px" th:text="${analyticsLine}"></p>
+    </div>
     <br>
-
 </div>
 
 

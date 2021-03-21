@@ -3,6 +3,7 @@ package org.geekhub.studentsregistry.analytics;
 import org.geekhub.studentsregistry.interfaces.Grade;
 import org.geekhub.studentsregistry.grades.grade.GradeWithValue;
 import org.geekhub.studentsregistry.students.Student;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.IntSummaryStatistics;
@@ -10,6 +11,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+@Component
 public class StudentsAnalystImpl implements StudentsAnalyst {
 
     private IntSummaryStatistics summaryStatistics = new IntSummaryStatistics();

@@ -1,4 +1,4 @@
-package org.geekhub.studentsregistry.printconverters;
+package org.geekhub.studentsregistry.converters;
 
 import org.geekhub.studentsregistry.anotations.Dependency;
 import org.geekhub.studentsregistry.enums.GradeType;
@@ -7,6 +7,7 @@ import org.geekhub.studentsregistry.grades.gradeFactory.GradeFactory;
 import org.geekhub.studentsregistry.grades.gradeFactory.GradeFactoryImpl;
 import org.geekhub.studentsregistry.students.Student;
 import org.geekhub.studentsregistry.analytics.StudentsAnalyst;
+import org.springframework.stereotype.Component;
 
 
 import java.util.ArrayList;
@@ -15,7 +16,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-
+@Component
 @Dependency
 public class ConverterAnalyticsToPrint {
 
