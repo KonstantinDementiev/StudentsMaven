@@ -89,7 +89,7 @@ public class StudentsRegistryTest {
                 studentsFileReader,
                 studentsFileWriter
         );
-        Mockito.when(studentsCreator.createStudentsList(eq(enteredStudents), eq(any()))).thenReturn(createdStudents);
+        Mockito.when(studentsCreator.createStudentsList(eq(enteredStudents))).thenReturn(createdStudents);
         Mockito.when(studentsFilterer.groupStudentsByGrade(eq(createdStudents))).thenReturn(filteredStudents);
         studentsRegistryConsole.run(TOTAL_STUDENTS_NUMBER, DataSourceMode.MANUAL);
         Mockito.verify(consoleStudentsPrinter, Mockito.times(4)).printOneGradeTypeStudents(anyList());
@@ -111,7 +111,7 @@ public class StudentsRegistryTest {
                 studentsFileReader,
                 studentsFileWriter
         );
-        Mockito.when(studentsCreator.createStudentsList(eq(enteredStudents), eq(any()))).thenReturn(createdStudents);
+        Mockito.when(studentsCreator.createStudentsList(eq(enteredStudents))).thenReturn(createdStudents);
         Mockito.when(studentsFilterer.groupStudentsByGrade(eq(createdStudents))).thenReturn(filteredStudents);
         studentsRegistryGenerator.run(TOTAL_STUDENTS_NUMBER, DataSourceMode.AUTO);
         Mockito.verify(consoleStudentsPrinter, Mockito.times(4)).printOneGradeTypeStudents(anyList());

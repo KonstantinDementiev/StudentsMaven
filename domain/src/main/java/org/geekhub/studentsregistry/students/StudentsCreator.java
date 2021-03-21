@@ -17,18 +17,16 @@ import java.util.stream.Collectors;
 @Dependency
 public class StudentsCreator {
 
-    public List<Student> createStudentsList(List<List<String>> originalStudentsArray, int startId) {
-        int [] studentId = {startId};
+    public List<Student> createStudentsList(List<List<String>> originalStudentsArray) {
         Optional<List<List<String>>> optionalList = Optional.ofNullable(originalStudentsArray);
         return optionalList.stream()
                 .flatMap(List::stream)
-                .map(student -> createStudent(student, ++studentId[0]))
+                .map(this::createStudent)
                 .collect(Collectors.toList());
     }
 
-    public Student createStudent(List<String> enteredData, int studentId) {
+    public Student createStudent(List<String> enteredData) {
         return new Student(
-                studentId,
                 enteredData.get(0),
                 createGradeForOneStudent(enteredData.get(1), enteredData.get(2)),
                 LocalDateTime.now()
@@ -38,14 +36,14 @@ public class StudentsCreator {
     private Grade createGradeForOneStudent(String gradeNumber, String gradeType) {
         final GradeFactory gradeFactory = new GradeFactoryImpl();
         return gradeFactory.createGrade(
-                parseGradeTypeFromString(gradeType), parseGradeNumberFromString(gradeNumber));
+                parseGradeTypeFromString(gradeType), parseNumberFromString(gradeNumber));
     }
 
     private GradeType parseGradeTypeFromString(String gradeTypeName) {
         return GradeType.from(gradeTypeName);
     }
 
-    private int parseGradeNumberFromString(String grateNumber) {
+    private int parseNumberFromString(String grateNumber) {
         return Integer.parseInt(grateNumber);
     }
 

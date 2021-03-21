@@ -17,25 +17,23 @@ public class StudentsCreatorTest {
     private final LocalDateTime DATE_TIME = LocalDateTime.of(2020, Month.DECEMBER, 11,15,30);
     private StudentsCreator studentsCreator;
     private List<List<String>> enteredArray;
-    private int studentId;
 
     @BeforeMethod
     public void setUp() {
         studentsCreator = new StudentsCreator();
         enteredArray = new ArrayList<>();
-        studentId = 1;
     }
 
     @Test
     public void When_InputNullArray_Then_ReturnEmptyArray() {
-        List<Student> actualStudents = studentsCreator.createStudentsList(null, studentId);
+        List<Student> actualStudents = studentsCreator.createStudentsList(null);
         List<Student> expectStudents = new ArrayList<>();
         Assert.assertEquals(actualStudents, expectStudents);
     }
 
     @Test
     public void When_InputEmptyArray_Then_ReturnEmptyArray() {
-        List<Student> actualStudents = studentsCreator.createStudentsList(enteredArray, studentId);
+        List<Student> actualStudents = studentsCreator.createStudentsList(enteredArray);
         List<Student> expectStudents = new ArrayList<>();
         Assert.assertEquals(actualStudents, expectStudents);
     }
@@ -44,7 +42,7 @@ public class StudentsCreatorTest {
     public void When_InputOneStudent_Then_ReturnArrayWithLengthOne() {
         List<String> student = List.of("Zina", "80", "LETTER");
         enteredArray.add(student);
-        List<Student> actualStudents = studentsCreator.createStudentsList(enteredArray, studentId);
+        List<Student> actualStudents = studentsCreator.createStudentsList(enteredArray);
         int actualArrayLength = actualStudents.size();
         Assert.assertEquals(actualArrayLength, 1);
     }
@@ -54,7 +52,7 @@ public class StudentsCreatorTest {
         enteredArray.add(List.of("1", "Zina", "80", "LETTER"));
         enteredArray.add(List.of("2", "Anna", "80", "GPA"));
         enteredArray.add(List.of("3", "John", "80", "PERCENTAGE"));
-        List<Student> actualStudents = studentsCreator.createStudentsList(enteredArray, studentId);
+        List<Student> actualStudents = studentsCreator.createStudentsList(enteredArray);
         List<Student> expectStudents = new ArrayList<>();
         expectStudents.add(new Student(1,"Zina", new GradeLetter(80), DATE_TIME));
         expectStudents.add(new Student(2,"Anna", new GradeGPA(80), DATE_TIME));

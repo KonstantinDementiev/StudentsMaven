@@ -5,7 +5,7 @@ import org.geekhub.studentsregistry.interfaces.Grade;
 
 import java.io.Serializable;
 
-public abstract class GradeWithValue implements Grade, Serializable {
+public abstract class GradeWithValue implements Grade {
 
     private final int value;
 

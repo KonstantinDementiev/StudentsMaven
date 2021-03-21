@@ -2,27 +2,42 @@ package org.geekhub.studentsregistry.students;
 
 import org.geekhub.studentsregistry.interfaces.Grade;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
-
+@Entity
 public class Student implements Serializable {
 
-    private final int id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Integer id;
     private String name;
     private Grade grade;
     private LocalDateTime examDate;
 
-    public Student(int id, String name, Grade grade, LocalDateTime examDate) {
+    public Student() {
+    }
+
+    public Student(String name, Grade grade, LocalDateTime examDate) {
+        this.name = name;
+        this.grade = grade;
+        this.examDate = examDate;
+    }
+
+    public Student(Integer id, String name, Grade grade, LocalDateTime examDate) {
         this.id = id;
         this.name = name;
         this.grade = grade;
         this.examDate = examDate;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
@@ -36,6 +51,10 @@ public class Student implements Serializable {
 
     public LocalDateTime getExamDate() {
         return examDate;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public void setName(String name) {
@@ -67,7 +86,7 @@ public class Student implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Student student = (Student) o;
-        return id == student.id &&
+        return id.equals(student.id) &&
                 name.equals(student.name) &&
                 Objects.equals(grade, student.grade);
     }

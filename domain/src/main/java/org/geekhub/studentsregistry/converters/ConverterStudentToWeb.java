@@ -22,14 +22,14 @@ public class ConverterStudentToWeb {
     public Student createStudentFromScore(StudentDataForWeb data) {
         List<String> paramsForNewStudent = List.of(
                 data.getName(), String.valueOf(data.getScore()), data.getGradeType());
-        return studentsCreator.createStudent(paramsForNewStudent, data.getId());
+        return studentsCreator.createStudent(paramsForNewStudent);
     }
 
     public Student createStudentFromGrade(StudentDataForWeb data) {
         int score = realGradeParser.getScoreFromGrade(data.getRealGrade(), data.getGradeType());
         List<String> paramsForNewStudent = List.of(
                 data.getName(), String.valueOf(score), data.getGradeType());
-        return studentsCreator.createStudent(paramsForNewStudent, data.getId());
+        return studentsCreator.createStudent(paramsForNewStudent);
     }
 
 

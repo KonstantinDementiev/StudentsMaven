@@ -60,9 +60,8 @@
                             <label for="id">Student ID</label>
                         </td>
                         <td>
-                            <input type="hidden" th:name="currentId" th:value="${studentId}">
                             <input readonly style="background-color: #b8b5b5; border-width: thin"
-                                   type="text" th:value="${studentId}" id="id"/>
+                                   type="text" id="id"/>
                         </td>
                     </tr>
                     <tr>
@@ -115,6 +114,8 @@
 <br>
 
 <a href="/students/all">View all students</a>
+
+<p style="color: green; font-weight: normal" th:text="${message}">Successfully</p>
 
 </body>
 </html>

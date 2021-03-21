@@ -1,6 +1,8 @@
 package org.geekhub.studentsregistry.interfaces;
 
-public interface Grade {
+import java.io.Serializable;
+
+public interface Grade extends Serializable {
 
     String asPrintVersion();
 

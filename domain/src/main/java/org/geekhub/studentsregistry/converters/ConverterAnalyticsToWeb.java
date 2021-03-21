@@ -5,7 +5,6 @@ import org.geekhub.studentsregistry.enums.GradeType;
 import org.geekhub.studentsregistry.students.Student;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -24,8 +23,8 @@ public class ConverterAnalyticsToWeb {
         this.studentsAnalyst = studentsAnalyst;
     }
 
-    public Map<GradeType,List<String>> getAllAnalytics(Map<GradeType, List<Student>> students) {
-        Map<GradeType,List<String>> result = new HashMap<>();
+    public Map<GradeType, List<String>> getAllAnalytics(Map<GradeType, List<Student>> students) {
+        Map<GradeType, List<String>> result = new HashMap<>();
         for (GradeType gradeType : GradeType.values()) {
             result.put(gradeType, converterAnalyticsToPrint.getPrintDataForOneGradeType(
                     gradeType, students.get(gradeType), studentsAnalyst));

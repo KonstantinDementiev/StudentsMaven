@@ -135,7 +135,7 @@ public class StudentsRegistry {
     private List<Student> createStudentsList(int totalStudentsCount, DataSourceMode dataSourceMode, int startId) {
         setForDataReaderActualImplementation(dataSourceMode);
         List<List<String>> enteredStudents = dataReader.createOriginalStudentsList(totalStudentsCount);
-        return studentsCreator.createStudentsList(enteredStudents, startId);
+        return studentsCreator.createStudentsList(enteredStudents);
     }
 
     private void setForDataReaderActualImplementation(DataSourceMode dataSourceMode) {
