@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>User editor</title>
+</head>
+
+<body style="margin-left: 100px; margin-right: 100px">
+<header style="background-color:#fffbd9; height:30px; font-weight: bold; font-size: x-large;">
+    <p>User editor</p>
+</header>
+<br>
+<form th:method="POST" th:action="@{/users/update/{id}(id=${user.getId()})}" th:object="${user}">
+
+    <input type="hidden" th:value="${user.getId()}" name="userId">
+    <input type="hidden" th:value="${_csrf.token}" name="_csrf">
+
+    <table style="font-family: Arial, sans-serif; padding: 5px 5px; color: #333;
+       border-style: solid; border-color: #ccc; border-width: 1px;">
+        <tr>
+            <td style="width: 120px">
+                <label for="userName">User name</label>
+            </td>
+            <td>
+                <input style="border-width: thin" type="text" id="userName" th:field="*{username}" name="username"/>
+                <div style="color: red; font-size: small"
+                     th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Name error
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 120px">
+                <label for="accessRights">Access rights</label>
+            </td>
+            <td>
+                <div th:each="role : ${roles}">
+                    <input id="accessRights" type="checkbox" th:name="${role}" th:field="*{roles}"
+                           th:value="${role}" th:text="${role}">
+                </div>
+            </td>
+        </tr>
+    </table>
+    <br>
+    <input style="width: 100px; background-color: rgba(183,250,165,0.56); border-width: thin"
+           type="submit" value="Update"/>
+</form>
+<br>
+<form th:method="POST" th:action="@{/users/delete/{id}(id=${user.getId()})}">
+    <input style="width: 100px; background-color: rgba(250,165,181,0.56); border-width: thin"
+           type="submit" value="Delete"/>
+</form>
+<p><a href="/users">Return to users list</a></p>
+<a href="/students/all">Return to main page</a>
+</body>
+</html>

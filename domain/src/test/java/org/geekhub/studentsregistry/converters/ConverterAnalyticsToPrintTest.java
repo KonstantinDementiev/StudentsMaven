@@ -26,9 +26,9 @@ public class ConverterAnalyticsToPrintTest {
         converter = new ConverterAnalyticsToPrint();
         studentsAnalyst = new StudentsAnalystImpl();
         studentsToAnalyze = new ArrayList<>();
-        studentsToAnalyze.add(new Student(1, "Tom", new GradeGPA(90), DATE_TIME));
-        studentsToAnalyze.add(new Student(2, "Bob", new GradeGPA(80), DATE_TIME));
-        studentsToAnalyze.add(new Student(3, "Jessy", new GradeGPA(70), DATE_TIME));
+        studentsToAnalyze.add(new Student("Tom", new GradeGPA(90), DATE_TIME));
+        studentsToAnalyze.add(new Student("Bob", new GradeGPA(80), DATE_TIME));
+        studentsToAnalyze.add(new Student("Jessy", new GradeGPA(70), DATE_TIME));
     }
 
     @Test(expectedExceptions = IllegalArgumentException.class)

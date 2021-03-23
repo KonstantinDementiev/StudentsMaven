@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Registration page</title>
+</head>
+
+<body style="margin-left: 100px; margin-right: 100px">
+
+<header style="background-color:#fffbd9; height:30px; font-weight: bold; font-size: x-large;">
+    <p>Registration page</p>
+</header>
+
+<form th:method="POST" th:action="@{/users/registration}" th:object="${user}">
+    <br>
+    <label for="username">User login:</label>
+    <input style="width: 150px; margin-left: 75px" type="text" id="username" th:field="*{username}">
+
+    <div style="color: red; font-size: smaller" th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Name error
+    </div>
+
+    <div style="color: red; font-size: smaller" th:text="${messageName}">Name message</div>
+
+    <br>
+    <div><label for="password">Password: </label>
+        <input style="width: 150px; margin-left: 81px" type="password" id="password" th:field="*{password}"/>
+
+        <div style="color: red; font-size: smaller" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password
+            error
+        </div>
+    </div>
+    <br>
+    <div>
+        <label for="confirmPass">Confirm password: </label>
+        <input style="width: 150px; margin-left: 24px" type="password" id="confirmPass" th:field="*{confirmPassword}"/>
+
+        <p style="color: red; font-size: smaller" th:text="${messageConfirm}"></p>
+    </div>
+    <input type="submit" value="Check in!"/>
+</form>
+<p>Already have account? <a th:href="@{/login}">Sign in</a></p>
+</body>
+</html>

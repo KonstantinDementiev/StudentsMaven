@@ -1,4 +1,4 @@
-package org.geekhub.studentsregistry.web.service;
+package org.geekhub.studentsregistry.web.service.interfaces;
 
 import org.geekhub.studentsregistry.enums.*;
 import org.geekhub.studentsregistry.students.Student;
@@ -6,6 +6,7 @@ import org.geekhub.studentsregistry.students.StudentDataForWeb;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 
 public interface StudentService {
@@ -14,7 +15,7 @@ public interface StudentService {
 
     Map<GradeType, List<String>> showAnalytics(Map<GradeType, List<Student>> ctudents);
 
-    Student showOne(int id);
+    Optional<Student> showOne(int id);
 
     void saveStudentWithScore(StudentDataForWeb studentData);
 
@@ -23,6 +24,8 @@ public interface StudentService {
     void update(int id, StudentDataForWeb studentData, String updateType);
 
     void delete(int id);
+
+    void deleteAll();
 
     long getStudentsCount();
 

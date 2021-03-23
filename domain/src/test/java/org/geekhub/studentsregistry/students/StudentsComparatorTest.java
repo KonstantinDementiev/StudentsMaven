@@ -24,55 +24,55 @@ public class StudentsComparatorTest {
 
     @Test
     public void When_FirstArgumentIsNull_Then_ReturnPositiveNumber() {
-        Student s2 = new Student(1,"Valera", new GradeLetter(80), DATE_TIME);
+        Student s2 = new Student("Valera", new GradeLetter(80), DATE_TIME);
         assertEquals(studentsComparator.compare(null, s2), 1);
     }
 
     @Test
     public void When_SecondArgumentIsNull_Then_ReturnNegativeNumber() {
-        Student s1 = new Student(1,"Valera", new GradeLetter(80), DATE_TIME);
+        Student s1 = new Student("Valera", new GradeLetter(80), DATE_TIME);
         assertEquals(studentsComparator.compare(s1, null), -1);
     }
 
     @Test
     public void When_FirstStudentHasMoreScore_Then_ReturnNegativeNumber() {
-        Student s1 = new Student(1,"Valera", new GradeLetter(80), DATE_TIME);
-        Student s2 = new Student(2,"Alena", new GradeLetter(70), DATE_TIME);
+        Student s1 = new Student("Valera", new GradeLetter(80), DATE_TIME);
+        Student s2 = new Student("Alena", new GradeLetter(70), DATE_TIME);
         assertEquals(studentsComparator.compare(s1, s2), -1);
     }
 
     @Test
     public void When_SecondStudentHasMoreScore_Then_ReturnPositiveNumber() {
-        Student s1 = new Student(1,"Valera", new GradeLetter(70), DATE_TIME);
-        Student s2 = new Student(2,"Alena", new GradeLetter(80), DATE_TIME);
+        Student s1 = new Student("Valera", new GradeLetter(70), DATE_TIME);
+        Student s2 = new Student("Alena", new GradeLetter(80), DATE_TIME);
         assertEquals(studentsComparator.compare(s1, s2), 1);
     }
 
     @Test
     public void When_BothStudentsHaveSameScore_Then_ReturnNegativeNumberIfFirstStudentFirstAlphabetically() {
-        Student s1 = new Student(1,"Alena", new GradeLetter(80), DATE_TIME);
-        Student s2 = new Student(2,"Valera", new GradeLetter(80), DATE_TIME);
+        Student s1 = new Student("Alena", new GradeLetter(80), DATE_TIME);
+        Student s2 = new Student("Valera", new GradeLetter(80), DATE_TIME);
         assertTrue(studentsComparator.compare(s1, s2) < 0);
     }
 
     @Test
     public void When_BothStudentsHaveSameScore_Then_ReturnPositiveNumberIfSecondStudentFirstAlphabetically() {
-        Student s1 = new Student(1,"Valera", new GradeUkraine(80), DATE_TIME);
-        Student s2 = new Student(2,"Alena", new GradeUkraine(80), DATE_TIME);
+        Student s1 = new Student("Valera", new GradeUkraine(80), DATE_TIME);
+        Student s2 = new Student("Alena", new GradeUkraine(80), DATE_TIME);
         assertTrue(studentsComparator.compare(s1, s2) > 0);
     }
 
     @Test
     public void When_BothStudentsHaveSameScoreAndSameName_Then_ReturnZero() {
-        Student s1 = new Student(1,"Valera", new GradeUkraine(80), DATE_TIME);
-        Student s2 = new Student(2,"Valera", new GradeUkraine(80), DATE_TIME);
+        Student s1 = new Student("Valera", new GradeUkraine(80), DATE_TIME);
+        Student s2 = new Student("Valera", new GradeUkraine(80), DATE_TIME);
         assertEquals(studentsComparator.compare(s1, s2), 0);
     }
 
     @Test
     public void When_BothStudentsHaveSameScoreAndSameNameButDifferentCase_Then_ReturnZero() {
-        Student s1 = new Student(1,"VALERA", new GradeUkraine(80), DATE_TIME);
-        Student s2 = new Student(2,"Valera", new GradeUkraine(80), DATE_TIME);
+        Student s1 = new Student("VALERA", new GradeUkraine(80), DATE_TIME);
+        Student s2 = new Student("Valera", new GradeUkraine(80), DATE_TIME);
         assertEquals(studentsComparator.compare(s1, s2), 0);
     }
 

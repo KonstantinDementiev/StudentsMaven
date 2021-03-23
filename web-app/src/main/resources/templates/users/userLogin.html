@@ -15,8 +15,8 @@
     <br>
     <br>
     <div>
-        <label for="userType">User login:</label>
-        <input style="width: 150px; margin-left: 20px" type="text" id="userType" name="username">
+        <label for="username">User login:</label>
+        <input style="width: 150px; margin-left: 20px" type="text" id="username" name="username">
     </div>
     <br>
     <div>
@@ -26,7 +26,7 @@
     <input type="submit" value="Login"/>
 </form>
 
-<p>Have no account? <a th:href="@{/registration}">Register now!</a></p>
+<p>Have no account? <a th:href="@{/users/registration}">Register now!</a></p>
 
 <div style="color: red" th:if="${param.error}">Invalid username or password.</div>
 <div style="color: #1418bd" th:if="${param.logout}"> You have been logged out.</div>

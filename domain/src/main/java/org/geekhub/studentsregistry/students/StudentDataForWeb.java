@@ -7,7 +7,7 @@ import javax.validation.constraints.*;
 
 public class StudentDataForWeb {
 
-    private int id;
+    private Integer id;
 
     @NotEmpty(message = "Name should not be empty")
     @Size(min = 2, max = 30, message = "Name should be between 2 and 30 characters")
@@ -24,18 +24,18 @@ public class StudentDataForWeb {
         this.gradeType = GradeType.values()[0].name();
     }
 
-    public StudentDataForWeb(int id, String name, int score, String gradeType) {
+    public StudentDataForWeb(Integer id, String name, int score, String gradeType) {
         this.id = id;
         this.name = name;
         this.score = score;
         this.gradeType = gradeType;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

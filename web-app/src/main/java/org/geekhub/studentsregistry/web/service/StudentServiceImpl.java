@@ -3,16 +3,18 @@ package org.geekhub.studentsregistry.web.service;
 import com.google.common.collect.Lists;
 import org.geekhub.studentsregistry.converters.ConverterAnalyticsToWeb;
 import org.geekhub.studentsregistry.converters.ConverterStudentToWeb;
-import org.geekhub.studentsregistry.enums.*;
+import org.geekhub.studentsregistry.enums.GradeType;
 import org.geekhub.studentsregistry.inputgenerator.StudentsRandomGenerator;
 import org.geekhub.studentsregistry.students.*;
 import org.geekhub.studentsregistry.web.logger.WebLogger;
 import org.geekhub.studentsregistry.web.repository.StudentRepo;
+import org.geekhub.studentsregistry.web.service.interfaces.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -59,9 +61,13 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public Student showOne(int id) {
-        Student student = studentRepo.findById(id).orElseThrow(IllegalArgumentException::new);
-        logger.info("Student with ID= " + id + " successfully loaded!");
+    public Optional<Student> showOne(int id) {
+        Optional<Student> student = studentRepo.findById(id);
+        if (student.isPresent()) {
+            logger.info("Student with ID= " + id + " successfully loaded!");
+        }else{
+            logger.info("Student with ID= " + id + " was not found!");
+        }
         return student;
     }
 
@@ -79,9 +85,9 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public void update(int id, StudentDataForWeb studentData, String updateType) {
-        if(studentRepo.existsById(id)) {
+        if (studentRepo.existsById(id)) {
             Student newStudent;
-            switch(updateType){
+            switch (updateType) {
                 case "byScore" -> newStudent = converterStudentToWeb.createStudentFromScore(studentData);
                 case "byGrade" -> newStudent = converterStudentToWeb.createStudentFromGrade(studentData);
                 default -> throw new IllegalStateException("Unexpected value of updateType: " + updateType);
@@ -92,15 +98,25 @@ public class StudentServiceImpl implements StudentService {
             existStudent.setExamDate(newStudent.getExamDate());
             studentRepo.save(existStudent);
             logger.info("Student with ID= " + id + " successfully updated!");
+        } else {
+            logger.info("Student with ID= " + id + " was not found!");
         }
     }
 
     @Override
     public void delete(int id) {
-        if(studentRepo.existsById(id)) {
+        if (studentRepo.existsById(id)) {
             studentRepo.deleteById(id);
             logger.info("Student with ID= " + id + " successfully removed!");
+        } else {
+            logger.info("Student with ID= " + id + " was not found!");
         }
+    }
+
+    @Override
+    public void deleteAll() {
+        studentRepo.deleteAll();
+        logger.info("All students have been removed!");
     }
 
     @Override
@@ -118,7 +134,7 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public StudentDataForWeb getDataFromStudent(int id) {
-        Student student = this.showOne(id);
+        Student student = this.showOne(id).orElseThrow(IllegalAccessError::new);
         return new StudentDataForWeb(
                 id,
                 student.getName(),

@@ -50,6 +50,7 @@
     <div>
         <h4 th:inline="text">Hello, [[${#httpServletRequest.remoteUser}]]!
             <input style="margin-left: 20px" type="submit" value="Sign Out"/>
+            <a style="margin-left: 20px" href="/users">Users list</a>
         </h4>
     </div>
 </form>
@@ -72,6 +73,12 @@
         <form th:method="GET" th:action="@{/students/new/random}">
             <input style="background-color: rgba(183,250,165,0.56); border-width: thin; width: 200px"
                    type="submit" value="Create RANDOM students"/>
+        </form>
+    </th>
+    <th style="padding-left: 20px">
+        <form th:method="POST" th:action="@{/students/deleteAll}">
+            <input style="background-color: rgba(250,165,181,0.56); border-width: thin; width: 200px"
+                   type="submit" value="Delete all Students"/>
         </form>
     </th>
 </table>

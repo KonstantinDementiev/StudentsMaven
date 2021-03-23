@@ -24,9 +24,9 @@ public class StudentsSorterTest {
     @BeforeMethod
     public void fillingStartStudentsArray() {
         studentsToSortWithUniqueValues = new ArrayList<>();
-        studentsToSortWithUniqueValues.add( new Student(1,"Tom", new GradeLetter(95), DATE_TIME));
-        studentsToSortWithUniqueValues.add(new Student(2,"Bob", new GradeLetter(80), DATE_TIME));
-        studentsToSortWithUniqueValues.add(new Student(3,"Alan", new GradeLetter(88), DATE_TIME));
+        studentsToSortWithUniqueValues.add( new Student("Tom", new GradeLetter(95), DATE_TIME));
+        studentsToSortWithUniqueValues.add(new Student("Bob", new GradeLetter(80), DATE_TIME));
+        studentsToSortWithUniqueValues.add(new Student("Alan", new GradeLetter(88), DATE_TIME));
     }
 
     @Test
@@ -64,9 +64,9 @@ public class StudentsSorterTest {
     @Test
     public void students_sorted_by_grades_with_unique_values() {
         expectedStudents = new ArrayList<>();
-        expectedStudents.add(new Student(1,"Tom", new GradeLetter(95), DATE_TIME));
-        expectedStudents.add(new Student(2,"Alan", new GradeLetter(88), DATE_TIME));
-        expectedStudents.add(new Student(3,"Bob", new GradeLetter(80), DATE_TIME));
+        expectedStudents.add(new Student("Tom", new GradeLetter(95), DATE_TIME));
+        expectedStudents.add(new Student("Alan", new GradeLetter(88), DATE_TIME));
+        expectedStudents.add(new Student("Bob", new GradeLetter(80), DATE_TIME));
         StudentsSorter studentsSorter = new StudentsSorter();
         sortedStudents = studentsSorter.sortStudentsByScoreAndName(studentsToSortWithUniqueValues);
         assertEquals(sortedStudents, expectedStudents);
@@ -75,13 +75,13 @@ public class StudentsSorterTest {
     @Test
     public void students_sorted_by_grade_with_same_values() {
         studentsToSortWithSameValues = new ArrayList<>();
-        studentsToSortWithSameValues.add(new Student(1,"Tom", new GradeLetter(95), DATE_TIME));
-        studentsToSortWithSameValues.add(new Student(2,"Bob", new GradeLetter(95), DATE_TIME));
-        studentsToSortWithSameValues.add(new Student(3,"Alan", new GradeLetter(95), DATE_TIME));
+        studentsToSortWithSameValues.add(new Student("Tom", new GradeLetter(95), DATE_TIME));
+        studentsToSortWithSameValues.add(new Student("Bob", new GradeLetter(95), DATE_TIME));
+        studentsToSortWithSameValues.add(new Student("Alan", new GradeLetter(95), DATE_TIME));
         expectedStudents = new ArrayList<>();
-        expectedStudents.add(new Student(1,"Alan", new GradeLetter(95), DATE_TIME));
-        expectedStudents.add(new Student(2,"Bob", new GradeLetter(95), DATE_TIME));
-        expectedStudents.add(new Student(3,"Tom", new GradeLetter(95), DATE_TIME));
+        expectedStudents.add(new Student("Alan", new GradeLetter(95), DATE_TIME));
+        expectedStudents.add(new Student("Bob", new GradeLetter(95), DATE_TIME));
+        expectedStudents.add(new Student("Tom", new GradeLetter(95), DATE_TIME));
         StudentsSorter studentsSorter = new StudentsSorter();
         sortedStudents = studentsSorter.sortStudentsByScoreAndName(studentsToSortWithSameValues);
         assertEquals(sortedStudents, expectedStudents);

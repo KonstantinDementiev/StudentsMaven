@@ -49,14 +49,14 @@ public class StudentsCreatorTest {
 
     @Test
     public void When_InputNotEmptyArray_Then_ReturnNotEmptyArray() {
-        enteredArray.add(List.of("1", "Zina", "80", "LETTER"));
-        enteredArray.add(List.of("2", "Anna", "80", "GPA"));
-        enteredArray.add(List.of("3", "John", "80", "PERCENTAGE"));
+        enteredArray.add(List.of("Zina", "80", "LETTER"));
+        enteredArray.add(List.of("Anna", "80", "GPA"));
+        enteredArray.add(List.of("John", "80", "PERCENTAGE"));
         List<Student> actualStudents = studentsCreator.createStudentsList(enteredArray);
         List<Student> expectStudents = new ArrayList<>();
-        expectStudents.add(new Student(1,"Zina", new GradeLetter(80), DATE_TIME));
-        expectStudents.add(new Student(2,"Anna", new GradeGPA(80), DATE_TIME));
-        expectStudents.add(new Student(3,"John", new GradePercentage(80), DATE_TIME));
+        expectStudents.add(new Student("Zina", new GradeLetter(80), DATE_TIME));
+        expectStudents.add(new Student("Anna", new GradeGPA(80), DATE_TIME));
+        expectStudents.add(new Student("John", new GradePercentage(80), DATE_TIME));
         Assert.assertEquals(actualStudents, expectStudents);
     }
 }

@@ -63,7 +63,7 @@ public class StudentsRegistryTest {
         List<String> student = List.of("Zina", "50", "LETTER");
         enteredStudents.add(student);
         createdStudents = new ArrayList<>();
-        createdStudents.add(new Student(1,"Zina", new GradeLetter(50), LocalDateTime.now()));
+        createdStudents.add(new Student("Zina", new GradeLetter(50), LocalDateTime.now()));
         filteredStudents = new HashMap<>();
         for (GradeType gradeType : GradeType.values()) {
             filteredStudents.put(gradeType, createdStudents);

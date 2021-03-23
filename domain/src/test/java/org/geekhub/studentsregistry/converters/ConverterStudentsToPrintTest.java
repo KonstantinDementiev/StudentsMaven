@@ -24,7 +24,7 @@ public class ConverterStudentsToPrintTest {
     public void setUp() {
         converter = new ConverterStudentsToPrint();
         studentsToPrint = new ArrayList<>();
-        studentsToPrint.add(new Student(1,"Bob", new GradeGPA(98), DATE_TIME));
+        studentsToPrint.add(new Student("Bob", new GradeGPA(98), DATE_TIME));
     }
 
     @Test

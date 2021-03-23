@@ -3,8 +3,9 @@ package org.geekhub.studentsregistry.web.controllers;
 import org.geekhub.studentsregistry.enums.GradeType;
 import org.geekhub.studentsregistry.students.Student;
 import org.geekhub.studentsregistry.students.StudentDataForWeb;
-import org.geekhub.studentsregistry.web.service.StudentService;
+import org.geekhub.studentsregistry.web.service.interfaces.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -38,7 +39,7 @@ public class StudentsController {
         model.addAttribute("analytics", studentService.showAnalytics(students));
         model.addAttribute("gradeTypes", GRADE_TYPES);
         model.addAttribute("studentsCount", studentService.getStudentsCount());
-        return "show";
+        return "/students/studentsShow";
     }
 
     @GetMapping("/new/score")
@@ -46,7 +47,7 @@ public class StudentsController {
         model.addAttribute("studentData", new StudentDataForWeb());
         model.addAttribute("gradeTypes", GRADE_TYPES);
         model.addAttribute("message");
-        return "new/score";
+        return "/students/new/newStudentByScore";
     }
 
     @PostMapping("/create/score")
@@ -54,11 +55,11 @@ public class StudentsController {
                                         @ModelAttribute("studentData") @Valid StudentDataForWeb studentData,
                                         BindingResult bindingResult) {
         model.addAttribute("gradeTypes", GRADE_TYPES);
-        if (bindingResult.hasErrors()) return "new/score";
+        if (bindingResult.hasErrors()) return "/students/new/newStudentByScore";
         studentService.saveStudentWithScore(studentData);
         model.addAttribute("message",
                 "The student with name: '" + studentData.getName() + "' was successfully created!");
-        return "new/score";
+        return "/students/new/newStudentByScore";
     }
 
     @GetMapping("/new/grade")
@@ -67,7 +68,7 @@ public class StudentsController {
         model.addAttribute("gradeTypes", GRADE_TYPES);
         model.addAttribute("gradesValues", StudentService.getAllRealGrades());
         model.addAttribute("message");
-        return "new/grade";
+        return "/students/new/newStudentByGrade";
     }
 
     @PostMapping("/create/grade")
@@ -76,34 +77,34 @@ public class StudentsController {
                                         BindingResult bindingResult) {
         model.addAttribute("gradeTypes", GRADE_TYPES);
         model.addAttribute("gradesValues", StudentService.getAllRealGrades());
-        if (bindingResult.hasErrors()) return "new/grade";
+        if (bindingResult.hasErrors()) return "/students/new/newStudentByGrade";
         studentService.saveStudentWithGrade(studentData);
         model.addAttribute("message",
                 "The student with name: '" + studentData.getName() + "' was successfully created!");
-        return "new/grade";
+        return "/students/new/newStudentByGrade";
     }
 
     @GetMapping("/new/random")
     public String newStudentsRandom(Model model) {
         model.addAttribute("message");
-        return "new/random";
+        return "/students/new/newStudentByRandom";
     }
 
     @PostMapping("/create/random")
     public String generateStudentsRandom(Model model, @RequestParam("randomNumber") int number) {
         studentService.generateNewStudents(number);
         model.addAttribute("message", number + " students were successfully generated!");
-        return "new/random";
+        return "/students/new/newStudentByRandom";
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("/{id}/edit")
     public String edit(Model model, @PathVariable("id") int id) {
         model.addAttribute("studentData", studentService.getDataFromStudent(id));
         model.addAttribute("gradeTypes", GRADE_TYPES);
         model.addAttribute("studentId", id);
         model.addAttribute("gradesValues", StudentService.getAllRealGrades());
-        model.addAttribute("message");
-        return "edit";
+        return "students/studentEdit";
     }
 
     @PostMapping("/{id}/update/score")
@@ -113,9 +114,8 @@ public class StudentsController {
                               BindingResult bindingResult) {
         model.addAttribute("gradeTypes", GRADE_TYPES);
         model.addAttribute("gradesValues", StudentService.getAllRealGrades());
-        if (bindingResult.hasErrors()) return "edit";
+        if (bindingResult.hasErrors()) return "students/studentEdit";
         studentService.update(id, studentData, "byScore");
-        model.addAttribute("message", "Student with ID= " + id + " successfully updated!");
         return "redirect:/students/all";
     }
 
@@ -126,16 +126,24 @@ public class StudentsController {
                               BindingResult bindingResult) {
         model.addAttribute("gradeTypes", GRADE_TYPES);
         model.addAttribute("gradesValues", StudentService.getAllRealGrades());
-        if (bindingResult.hasErrors()) return "edit";
+        if (bindingResult.hasErrors()) return "students/studentEdit";
         studentService.update(id, studentData, "byGrade");
-        model.addAttribute("message", "Student with ID= " + id + " successfully updated!");
         return "redirect:/students/all";
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping("/{id}/delete")
     public String remove(@PathVariable("id") int id) {
         studentService.delete(id);
         return "redirect:/students/all";
     }
+
+    @PreAuthorize("hasAuthority('ADMIN')")
+    @PostMapping("/deleteAll")
+    public String removeAll() {
+        studentService.deleteAll();
+        return "redirect:/students/all";
+    }
+
 
 }

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Users list</title>
+</head>
+
+<body style="margin-left: 100px; margin-right: 100px">
+<header style="background-color:#fffbd9; height:30px; font-weight: bold; font-size: x-large;">
+    <p>List of users</p>
+</header>
+<br>
+
+<table style="font-family: Arial, sans-serif; padding: 5px 5px; color: #333;
+       border-style: solid; border-color: #ccc; border-width: 1px;">
+    <thead style="background-color: #d5d5d5">
+    <tr>
+        <th width="40">ID</th>
+        <th width="120">Name</th>
+        <th width="80">Pass</th>
+        <th width="180">Role</th>
+        <th width="60">Edit</th>
+    </tr>
+    </thead>
+    <tbody style="font-size: small; font-family: 'Calibri Light', serif">
+    <div th:each="user : ${users}">
+        <tr>
+            <th th:text="${user.getId()}">id</th>
+            <th th:text="${user.getUsername()}">Name</th>
+            <th th:text="${user.getPassword()}">Pass</th>
+            <th th:text="${#strings.listJoin(user.getRoles(),', ')}">Role</th>
+            <th><a th:href="@{/users/update/{id}(id=${user.getId()})}">edit</a></th>
+        </tr>
+    </div>
+    </tbody>
+</table>
+
+<br>
+<a href="/students/all">Return to main page</a>
+</body>
+</html>
