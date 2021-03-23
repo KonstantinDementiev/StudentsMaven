@@ -4,6 +4,7 @@ import org.geekhub.studentsregistry.enums.*;
 import org.geekhub.studentsregistry.students.Student;
 import org.geekhub.studentsregistry.students.StudentDataForWeb;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -13,7 +14,7 @@ public interface StudentService {
 
     Map<GradeType, List<Student>> showAll();
 
-    Map<GradeType, List<String>> showAnalytics(Map<GradeType, List<Student>> ctudents);
+    Map<GradeType, List<String>> showAnalytics(Map<GradeType, List<Student>> students, HttpServletRequest request);
 
     Optional<Student> showOne(int id);
 

@@ -5,7 +5,6 @@ import org.geekhub.studentsregistry.web.repository.UserRepo;
 import org.geekhub.studentsregistry.web.service.interfaces.UserService;
 import org.geekhub.studentsregistry.web.users.User;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 

@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.List;
 import java.util.Map;
@@ -21,10 +22,12 @@ public class StudentsController {
 
     private static final GradeType[] GRADE_TYPES = GradeType.values();
     private final StudentService studentService;
+    private final HttpServletRequest request;
 
     @Autowired
-    public StudentsController(StudentService studentService) {
+    public StudentsController(StudentService studentService, HttpServletRequest request) {
         this.studentService = studentService;
+        this.request = request;
     }
 
     @GetMapping
@@ -36,7 +39,7 @@ public class StudentsController {
     public String index(Model model) {
         Map<GradeType, List<Student>> students = studentService.showAll();
         model.addAttribute("students", students);
-        model.addAttribute("analytics", studentService.showAnalytics(students));
+        model.addAttribute("analytics", studentService.showAnalytics(students, request));
         model.addAttribute("gradeTypes", GRADE_TYPES);
         model.addAttribute("studentsCount", studentService.getStudentsCount());
         return "/students/studentsShow";
@@ -107,6 +110,7 @@ public class StudentsController {
         return "students/studentEdit";
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping("/{id}/update/score")
     public String updateScore(Model model,
                               @PathVariable("id") int id,
@@ -119,6 +123,7 @@ public class StudentsController {
         return "redirect:/students/all";
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping("/{id}/update/grade")
     public String updateGrade(Model model,
                               @PathVariable("id") int id,

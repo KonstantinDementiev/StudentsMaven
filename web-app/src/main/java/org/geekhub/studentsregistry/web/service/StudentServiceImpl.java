@@ -10,8 +10,12 @@ import org.geekhub.studentsregistry.web.logger.WebLogger;
 import org.geekhub.studentsregistry.web.repository.StudentRepo;
 import org.geekhub.studentsregistry.web.service.interfaces.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpServletRequest;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -56,8 +60,14 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public Map<GradeType, List<String>> showAnalytics(Map<GradeType, List<Student>> students) {
-        return converterAnalyticsToWeb.getAllAnalytics(students);
+    public Map<GradeType, List<String>> showAnalytics(Map<GradeType, List<Student>> students,
+                                                      HttpServletRequest request) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if (auth != null && auth.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ADMIN"))) {
+            return converterAnalyticsToWeb.getAllAnalytics(students);
+        } else {
+            return new HashMap<>();
+        }
     }
 
     @Override
@@ -65,7 +75,7 @@ public class StudentServiceImpl implements StudentService {
         Optional<Student> student = studentRepo.findById(id);
         if (student.isPresent()) {
             logger.info("Student with ID= " + id + " successfully loaded!");
-        }else{
+        } else {
             logger.info("Student with ID= " + id + " was not found!");
         }
         return student;
